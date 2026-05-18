@@ -273,9 +273,10 @@ export default function Playground() {
         style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 clamp(1.5rem, 4vw, 3rem)' }}
       >
         {/* Ultra-Premium Editorial Header */}
-        <div ref={headerRef} className="w-full flex flex-col items-center text-center relative" style={{ marginBottom: '4rem' }}>
+        <div ref={headerRef} className="w-full flex flex-col items-center text-center relative max-md:px-4" style={{ marginBottom: '4rem' }}>
           <span
             aria-hidden="true"
+            className="max-md:!text-[6rem]"
             style={{
               fontFamily: 'var(--font-heading)',
               fontSize: 'clamp(8rem, 18vw, 16rem)',
@@ -313,7 +314,9 @@ export default function Playground() {
             </div>
           </div>
           
-          <h2 style={{
+          <h2 
+            className="max-md:!text-5xl"
+            style={{
             fontFamily: 'var(--font-heading)',
             fontSize: 'clamp(2.8rem, 6.5vw, 5.5rem)',
             fontWeight: 'var(--heading-weight)' as any,

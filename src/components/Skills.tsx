@@ -107,8 +107,8 @@ export default function Skills() {
     <section
       id="skills"
       ref={sectionRef}
-      className="relative w-full flex flex-col items-start overflow-hidden skills-light-section"
-      style={{ paddingTop: '10rem', paddingBottom: '10rem', contain: 'paint' }}
+      className="relative w-full flex flex-col items-start overflow-hidden skills-light-section pt-40 pb-40 max-md:!py-20"
+      style={{ contain: 'paint' }}
     >
       <div className="w-full flex flex-col items-start relative z-10" style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 clamp(1.5rem, 8vw, 10rem)' }}>
         {/* Header */}
@@ -184,7 +184,7 @@ export default function Skills() {
                 onMouseLeave={handleLeave}
                 style={{ padding: 'clamp(0.15rem, 0.5vw, 0.3rem) 0' }}
               >
-                <div className="flex items-center justify-start gap-8">
+                <div className="flex items-center justify-start gap-8 max-md:flex-col max-md:items-start max-md:gap-1 max-md:py-2">
                   <h3
                     style={{
                       fontFamily: "'Bebas Neue', sans-serif",
@@ -207,6 +207,7 @@ export default function Skills() {
                   </h3>
 
                   <span
+                    className="max-md:!opacity-100 max-md:!translate-x-0"
                     style={{
                       fontFamily: 'var(--font-mono)',
                       fontSize: '7px',
@@ -233,7 +234,7 @@ export default function Skills() {
       {/* Video container — Pool of pre-loaded videos */}
       <div
         ref={videoContainerRef}
-        className="absolute z-20 pointer-events-none block"
+        className="absolute z-20 pointer-events-none block max-md:hidden"
         style={{
           right: 'clamp(1rem, 5vw, 4rem)',
           width: 'clamp(120px, 25vw, 260px)',

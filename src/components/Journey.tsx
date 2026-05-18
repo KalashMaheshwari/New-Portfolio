@@ -72,60 +72,32 @@ const JourneyMilestone = ({ item, i, activeIndex }: { item: any, i: number, acti
   useEffect(() => {
     if (!cardRef.current || !pinRef.current || !contentRef.current) return;
 
-    if (isActive) {
-      // Entrance Animation
-      gsap.to(cardRef.current, {
-        rotateX: 45,
-        translateZ: 20,
-        duration: 1.4,
-        ease: "power3.out"
-      });
-      gsap.to(pinRef.current, {
-        height: 160,
-        translateZ: 2, // Fixed to the card surface
-        opacity: 1,
-        duration: 1.4,
-        ease: "power3.out"
-      });
-      gsap.to(contentRef.current, {
-        opacity: 1,
-        y: 0,
-        z: 40, // Content floats slightly forward from the pin top
-        duration: 1.2,
-        delay: 0.1,
-        ease: "power2.out"
-      });
-    } else {
-      // Exit Animation
-      gsap.to(cardRef.current, {
-        rotateX: 0,
-        translateZ: 0,
-        duration: 1,
-        ease: "power2.inOut"
-      });
-      gsap.to(pinRef.current, {
-        height: 0,
-        translateZ: -100, // Sinks behind on exit
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.in"
-      });
-      gsap.to(contentRef.current, {
-        opacity: 0,
-        y: 40,
-        duration: 0.6,
-        ease: "power2.in"
-      });
-    }
+    let mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      if (isActive) {
+        // Entrance Animation
+        gsap.to(cardRef.current, { rotateX: 45, translateZ: 20, duration: 1.4, ease: "power3.out" });
+        gsap.to(pinRef.current, { height: 160, translateZ: 2, opacity: 1, duration: 1.4, ease: "power3.out" });
+        gsap.to(contentRef.current, { opacity: 1, y: 0, z: 40, duration: 1.2, delay: 0.1, ease: "power2.out" });
+      } else {
+        // Exit Animation
+        gsap.to(cardRef.current, { rotateX: 0, translateZ: 0, duration: 1, ease: "power2.inOut" });
+        gsap.to(pinRef.current, { height: 0, translateZ: -100, opacity: 0, duration: 0.8, ease: "power2.in" });
+        gsap.to(contentRef.current, { opacity: 0, y: 40, duration: 0.6, ease: "power2.in" });
+      }
+    });
+
+    return () => mm.revert();
   }, [isActive]);
 
   return (
     <div
-      className="editorial-spread flex-shrink-0 w-[500px] lg:w-[600px] h-full relative flex items-center justify-center"
+      className="editorial-spread flex-shrink-0 w-[500px] lg:w-[600px] h-full relative flex items-center justify-center max-md:!w-full max-md:!h-[60vh] max-md:!mx-0"
       style={{ marginLeft: '12vw', marginRight: '12vw' }}
     >
-      {/* Perspective Wrapper */}
-      <div className="relative w-full aspect-[16/9] z-10" style={{ perspective: '3000px' }}>
+      {/* ── DESKTOP ONLY: 3D CARD ── */}
+      <div className="relative w-full aspect-[16/9] z-10 max-md:hidden" style={{ perspective: '3000px' }}>
 
         {/* The Tilting Card Container */}
         <div
@@ -165,7 +137,7 @@ const JourneyMilestone = ({ item, i, activeIndex }: { item: any, i: number, acti
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#FF6B00] rounded-full shadow-[0_0_12px_#FF6B00]" />
 
                 {/* Content Node at the top of the line */}
-                <div ref={contentRef} className="absolute bottom-full left-1/2 -translate-x-1/2 mb-6 w-[600px] opacity-0">
+                <div ref={contentRef} className="absolute bottom-full left-1/2 -translate-x-1/2 mb-6 w-[600px] max-md:w-[85vw] opacity-0">
                   <div className="flex flex-col items-center space-y-6 relative py-8">
 
                     {/* Corner Accents */}
@@ -193,7 +165,7 @@ const JourneyMilestone = ({ item, i, activeIndex }: { item: any, i: number, acti
                     </div>
 
                     <h3
-                      className="text-7xl lg:text-8xl font-normal text-white tracking-tighter uppercase leading-none text-center py-2"
+                      className="text-7xl lg:text-8xl max-md:text-5xl font-normal text-white tracking-tighter uppercase leading-none text-center py-2"
                       style={{ fontFamily: 'Anton, sans-serif', padding: '0.5rem 0' }}
                     >
                       {item.title}
@@ -222,9 +194,55 @@ const JourneyMilestone = ({ item, i, activeIndex }: { item: any, i: number, acti
         />
       </div>
 
+      {/* ── MOBILE ONLY: FLAT LIST ITEM ── */}
+      <div className="hidden max-md:flex w-full h-full flex-col items-center justify-center relative overflow-hidden px-6 py-16">
+        
+        {/* Dimmed Background Photo */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.35]">
+          <img src={item.image} alt={item.title} className="w-full h-full object-cover grayscale" />
+        </div>
+
+        {/* 100% Opaque Gradient Overlays for Seamless Merging */}
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-[#1a1a1a] via-transparent to-[#1a1a1a]" />
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)]" />
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-full">
+          
+          <div className="flex items-center justify-center gap-4">
+            <div className="h-px w-8 bg-gradient-to-r from-transparent to-[#FF6B00]" />
+            <span
+              className="text-white/70 text-2xl italic leading-none"
+              style={{ fontFamily: "'Cormorant Garamond', serif" }}
+            >
+              {item.year}
+            </span>
+            <div className="h-px w-8 bg-gradient-to-l from-transparent to-[#FF6B00]" />
+          </div>
+
+          <div style={{ height: '24px', width: '100%' }} />
+
+          <h3
+            className="text-[4rem] font-normal tracking-tighter uppercase leading-[0.85] text-transparent bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/30 drop-shadow-2xl"
+            style={{ fontFamily: 'Anton, sans-serif' }}
+          >
+            {item.title}
+          </h3>
+
+          <div style={{ height: '24px', width: '100%' }} />
+
+          <p 
+            className="text-[18px] font-medium text-white/60 leading-[1.3] max-w-[320px] uppercase tracking-wide"
+            style={{ fontFamily: "'Saira Extra Condensed', sans-serif" }}
+          >
+            {item.description}
+          </p>
+        </div>
+      </div>
+
       {/* Parallax Background Year */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-normal text-white/[0.012] pointer-events-none select-none uppercase z-[-1]"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-normal text-white/[0.012] pointer-events-none select-none uppercase z-[-1] max-md:hidden"
         style={{ fontFamily: 'Anton, sans-serif' }}
       >
         {item.yearShort || item.year.split(' ')[0]}
@@ -240,52 +258,58 @@ export default function Journey() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
+    let mm = gsap.matchMedia();
     const ctx = gsap.context(() => {
-      const horizontal = horizontalRef.current;
-      const section = sectionRef.current;
-      const progressLine = progressLineRef.current;
-      if (!horizontal || !section) return;
+      mm.add("(min-width: 768px)", () => {
+        const horizontal = horizontalRef.current;
+        const section = sectionRef.current;
+        const progressLine = progressLineRef.current;
+        if (!horizontal || !section) return;
 
-      const totalWidth = horizontal.scrollWidth;
-      const windowWidth = window.innerWidth;
-      const amountToScroll = totalWidth - windowWidth;
+        const totalWidth = horizontal.scrollWidth;
+        const windowWidth = window.innerWidth;
+        const amountToScroll = totalWidth - windowWidth;
 
-      ScrollTrigger.create({
-        trigger: section,
-        pin: true,
-        start: "top top",
-        end: () => `+=${totalWidth}`,
-        scrub: 1.2,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const idx = Math.min(
-            Math.floor(progress * JOURNEY_DATA.length * 1.1),
-            JOURNEY_DATA.length - 1
-          );
-          setActiveIndex(idx);
-          gsap.set(horizontal, { x: -progress * amountToScroll });
-          if (progressLine) {
-            gsap.set(progressLine, { scaleX: progress });
+        ScrollTrigger.create({
+          trigger: section,
+          pin: true,
+          start: "top top",
+          end: () => `+=${totalWidth}`,
+          scrub: 1.2,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            const idx = Math.min(
+              Math.floor(progress * JOURNEY_DATA.length * 1.1),
+              JOURNEY_DATA.length - 1
+            );
+            setActiveIndex(idx);
+            gsap.set(horizontal, { x: -progress * amountToScroll });
+            if (progressLine) {
+              gsap.set(progressLine, { scaleX: progress });
+            }
           }
-        }
+        });
       });
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      mm.revert();
+    };
   }, []);
 
   return (
     <section
       ref={sectionRef}
       id="journey"
-      className="relative w-full h-screen bg-[#111] overflow-hidden select-none"
+      className="relative w-full h-screen bg-[#111] overflow-hidden select-none max-md:!h-auto max-md:!overflow-visible max-md:!bg-[#1a1a1a]"
     >
-      <div className="flex h-full w-full relative z-10">
+      <div className="flex h-full w-full relative z-10 max-md:flex-col">
 
         {/* ══ LEFT: EDITORIAL COVER ══ */}
         <div
-          className="w-[42%] h-full flex flex-col justify-center relative bg-[#111] z-20 shadow-[80px_0_150px_rgba(0,0,0,0.9)]"
+          className="w-[42%] h-full flex flex-col justify-center relative bg-[#111] z-20 shadow-[80px_0_150px_rgba(0,0,0,0.9)] max-md:w-full max-md:h-[50vh] max-md:min-h-[400px] max-md:!bg-[#1a1a1a]"
           style={{ paddingLeft: '5vw', paddingRight: '7vw' }}
         >
 
@@ -294,13 +318,13 @@ export default function Journey() {
             <div className="flex flex-col mb-20">
               <div className="flex flex-col items-start">
                 <span
-                  className="text-[6vw] font-light leading-none tracking-tight text-white italic -mb-6"
+                  className="text-[6vw] font-light leading-none tracking-tight text-white italic -mb-6 max-md:text-4xl"
                   style={{ fontFamily: "'Cormorant Garamond', serif" }}
                 >
                   The
                 </span>
                 <h2
-                  className="text-[9vw] font-normal leading-[0.8] tracking-tighter text-white uppercase"
+                  className="text-[9vw] font-normal leading-[0.8] tracking-tighter text-white uppercase max-md:text-6xl"
                   style={{ fontFamily: 'Anton, sans-serif' }}
                 >
                   JOURNEY
@@ -336,8 +360,8 @@ export default function Journey() {
           <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full h-1/2 bg-white/[0.01] blur-[120px] pointer-events-none" />
         </div>
 
-        {/* ══ RIGHT: HORIZONTAL TIMELINE STREAM ══ */}
-        <div className="w-[58%] h-full overflow-hidden relative bg-[#1a1a1a]">
+        {/* ══ RIGHT: HORIZONTAL TIMELINE STREAM (STACKED ON MOBILE) ══ */}
+        <div className="w-[58%] h-full overflow-hidden relative bg-[#1a1a1a] max-md:!w-full max-md:!h-auto max-md:!overflow-visible">
 
           {/* Static High-Performance Dot Background */}
           <div
@@ -349,7 +373,7 @@ export default function Journey() {
           />
 
           {/* Main Timeline Axis: The "Data Bus" */}
-          <div className="absolute top-1/2 left-0 w-full h-[2px] bg-white/5 z-0 overflow-hidden">
+          <div className="absolute top-1/2 left-0 w-full h-[2px] bg-white/5 z-0 overflow-hidden max-md:hidden">
             {/* Base Pulse */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FF6B00]/10 to-transparent w-1/3 animate-data-pulse" />
 
@@ -366,35 +390,13 @@ export default function Journey() {
 
           <div
             ref={horizontalRef}
-            className="flex h-full items-center px-[10vw] relative z-10"
+            className="flex h-full items-center px-[10vw] relative z-10 max-md:flex-col max-md:!w-full max-md:!px-0 max-md:!h-auto"
             style={{ width: 'max-content' }}
           >
             {JOURNEY_DATA.map((item, i) => (
               <JourneyMilestone key={i} item={item} i={i} activeIndex={activeIndex} />
             ))}
 
-            {/* ── END SPREAD ── */}
-            <div className="w-[40vw] flex-shrink-0 flex flex-col items-start justify-center pl-32 space-y-12">
-              <div className="space-y-4">
-                <div className="w-20 h-[3px] bg-[#FF6B00]" />
-                <h2
-                  className="text-[12vw] font-normal text-white/5 tracking-tighter uppercase leading-none"
-                  style={{ fontFamily: 'Anton, sans-serif' }}
-                >
-                  FIN.
-                </h2>
-              </div>
-
-              <button
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="group relative px-8 py-4 border border-white/10 overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-[#FF6B00] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                <span className="relative z-10 font-mono text-[10px] uppercase tracking-[0.4em] text-white/40 group-hover:text-black transition-colors duration-500">
-                  Back to Start
-                </span>
-              </button>
-            </div>
           </div>
         </div>
       </div>

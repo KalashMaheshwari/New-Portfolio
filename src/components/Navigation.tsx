@@ -109,7 +109,8 @@ export default function Navigation() {
     setIsOpen(true);
     await new Promise(r => setTimeout(r, 50));
 
-    await animate(scope.current, { width: 335, height: 56 }, { duration: 0.3, ease: PREMIUM_EASE });
+    const targetWidth = Math.min(335, window.innerWidth - 32);
+    await animate(scope.current, { width: targetWidth, height: 56 }, { duration: 0.3, ease: PREMIUM_EASE });
     await animate(scope.current, { height: 422 }, { duration: 0.3, ease: PREMIUM_EASE });
 
     setShowContent(true);
@@ -176,7 +177,7 @@ export default function Navigation() {
 
       <motion.div
         ref={scope}
-        className={`fixed top-6 right-6 z-50 rounded-[20px] overflow-hidden ${isOpen ? 'bg-white' : ''}`}
+        className={`fixed top-6 right-6 z-50 rounded-[20px] overflow-hidden ${isOpen ? 'bg-white' : ''} max-md:top-4 max-md:right-4`}
         style={{ width: 56, height: 56 }}
       >
         <button
@@ -210,7 +211,7 @@ export default function Navigation() {
               style={{
                 fontFamily: "var(--font-neue)",
                 padding: "42px 20px 32px 20px",
-                width: 335,
+                width: '100%',
                 height: 422
               }}
               variants={containerVariants}

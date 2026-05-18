@@ -124,11 +124,10 @@ export default function CTA() {
     <section
       id="cta"
       ref={sectionRef}
-      className="relative w-full flex flex-col items-center justify-center overflow-hidden"
+      className="relative w-full flex flex-col items-center justify-center overflow-hidden py-40 px-4 max-md:!py-20"
       style={{
         backgroundColor: '#0a0a0a',
         minHeight: '100vh',
-        padding: '10rem 1rem',
         contain: 'paint'
       }}
     >

@@ -196,7 +196,7 @@ export default function Footer() {
         </div>
 
         {/* ROW 2: STATIC VIDEO GRID (Full width 6-item track) */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 md:gap-6 w-full" style={{ marginTop: '144px', marginBottom: '68px' }}>
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-6 w-full mt-36 mb-16 max-md:!mt-24 max-md:!mb-24">
           {STATIC_VIDEOS.map((basePath, idx) => (
             <div
               key={idx}
@@ -290,12 +290,11 @@ export default function Footer() {
         className="relative flex flex-col w-[85vw] mx-auto"
       >
         <div
-          className="relative flex items-center justify-center w-full overflow-hidden"
-          style={{ height: '45vh', minHeight: '400px' }}
+          className="relative flex items-center justify-center w-full overflow-hidden min-h-[200px] md:min-h-[400px] h-[45vh]"
         >
           <div
             ref={signatureTextRef}
-            className="w-full h-full pointer-events-auto"
+            className="w-full h-full pointer-events-auto max-md:hidden"
             style={{ transformOrigin: 'top center', willChange: 'transform' }}
           >
             <TextPressure
@@ -310,12 +309,15 @@ export default function Footer() {
               scale={true}
             />
           </div>
+          <div className="hidden max-md:flex w-full h-full items-center justify-center pointer-events-auto">
+            <span style={{ fontFamily: 'Anton, sans-serif', fontSize: '20vw', color: 'white', lineHeight: 1 }}>KALASH!</span>
+          </div>
         </div>
 
         {/* ═══ BOTTOM THIN STRIP ═══ */}
-        <div className="w-full pt-1 flex flex-col md:flex-row justify-between items-center text-white uppercase text-[8px] md:text-[10px] tracking-[0.1em] font-mono opacity-50 space-y-2 md:space-y-0" style={{ paddingBottom: '1rem' }}>
-          <div style={{ paddingLeft: '2.5rem' }}>I CRAFT BOLD DESIGN & HIGH PERFORMANCE.</div>
-          <div style={{ paddingRight: '2.5rem' }}>NEW DELHI, IN &nbsp; {time}</div>
+        <div className="w-full pt-1 pb-4 flex flex-col md:flex-row justify-between items-center text-white uppercase text-[8px] md:text-[10px] tracking-[0.1em] font-mono opacity-50 space-y-2 md:space-y-0">
+          <div className="md:pl-10">I CRAFT BOLD DESIGN & HIGH PERFORMANCE.</div>
+          <div className="md:pr-10">NEW DELHI, IN &nbsp; {time}</div>
         </div>
       </div>
 

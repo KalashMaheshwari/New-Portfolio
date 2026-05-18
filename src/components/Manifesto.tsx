@@ -219,7 +219,7 @@ export default function Manifesto() {
 
       <div
         ref={containerRef}
-        className="relative z-10 w-full max-w-6xl mx-auto flex flex-col justify-center items-start px-6"
+        className="relative z-10 w-full max-w-6xl mx-auto flex flex-col justify-center items-start px-6 max-md:!px-10 max-md:box-border"
       >
         <div className="flex items-center gap-6 mb-16 overflow-hidden w-full">
           <div className="w-12 h-[1px] bg-[var(--text)] opacity-30" />
@@ -242,7 +242,7 @@ export default function Manifesto() {
         </div>
 
         <div
-          className="flex flex-col gap-y-3 w-full relative"
+          className="flex flex-col gap-y-3 w-full relative max-md:!text-[2.5rem] max-md:ml-2 max-md:!leading-[1.1]"
           style={{
             fontFamily: headingFont,
             fontSize: 'clamp(3.5rem, 8vw, 7rem)',

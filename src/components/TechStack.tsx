@@ -811,7 +811,7 @@ export default function TechStack() {
       <section
         ref={sectionRef}
         id="tech-stack"
-        className="relative w-full bg-[#1a1a1a] flex flex-col overflow-hidden py-[160px] md:py-[200px]"
+        className="relative w-full bg-[#1a1a1a] flex flex-col overflow-hidden py-[160px] md:py-[200px] max-md:py-[80px]"
       >
         {/* Ambient glows */}
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#FF6B00]/[0.02] rounded-full blur-[150px] pointer-events-none" />
@@ -819,7 +819,7 @@ export default function TechStack() {
         <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-[#FF6B00]/[0.015] rounded-full blur-[180px] pointer-events-none translate-x-1/3 -translate-y-1/2" />
 
         {/* 3D Canvas */}
-        <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+        <div className="absolute inset-0 w-full h-full pointer-events-none z-0 max-md:hidden">
           <Canvas dpr={[1, 1.5]} gl={{ antialias: true, alpha: true }}>
             <PerspectiveCamera makeDefault position={[0, 0, 20]} fov={35} />
             <ambientLight intensity={1.5} />
@@ -846,7 +846,7 @@ export default function TechStack() {
         />
 
         {/* Content */}
-        <div className="relative z-10 w-full flex px-6 md:px-12 lg:px-0">
+        <div className="relative z-10 w-full flex px-6 md:px-12 lg:px-0 max-md:!px-10 max-md:box-border">
           <div className="hidden lg:block" style={{ width: '140px', minWidth: '140px' }} />
 
           <div className="flex-1 max-w-3xl">
@@ -976,7 +976,7 @@ export default function TechStack() {
                   );
                 })}
                 <div className="hidden md:block w-[1px] h-10 bg-white/[0.06]" />
-                <div className="flex flex-col gap-1.5">
+                <div className="flex flex-col gap-1.5 max-md:hidden">
                   <span className="text-[28px] font-light text-white/20" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
                     {DATA.length}
                   </span>

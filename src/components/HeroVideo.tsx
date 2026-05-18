@@ -43,9 +43,11 @@ export default function HeroVideo() {
     const landing = document.getElementById('landing');
 
     const ctx = gsap.context(() => {
+      const isMobile = window.innerWidth < 768;
+      
       /* ── Initial states ─────────────────────────────────────────── */
       gsap.set(wrapper, {
-        clipPath: 'inset(24vh 28vw round 18px)',
+        clipPath: isMobile ? 'inset(24vh 5vw round 18px)' : 'inset(24vh 28vw round 18px)',
         yPercent: 130,
         scale: 0.82,
         rotateX: 10,

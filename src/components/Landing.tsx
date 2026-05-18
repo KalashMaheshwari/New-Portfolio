@@ -149,11 +149,11 @@ export default function Landing() {
       </div>
 
       {/* Bottom Corner Labels */}
-      <div className="absolute bottom-10 left-10 z-[40] flex items-center gap-6 opacity-70 group cursor-crosshair text-white">
+      <div className="absolute bottom-10 left-10 z-[40] flex items-center gap-6 opacity-70 group cursor-crosshair text-white max-md:hidden">
         <div className="w-16 h-px bg-white origin-left transition-transform group-hover:scale-x-150" />
         <span className="font-mono text-[9px] tracking-[0.4em] uppercase">Engineering</span>
       </div>
-      <div className="absolute bottom-10 right-10 z-[40] flex items-center gap-6 opacity-70 group cursor-crosshair text-white">
+      <div className="absolute bottom-10 right-10 z-[40] flex items-center gap-6 opacity-70 group cursor-crosshair text-white max-md:hidden">
         <span className="font-mono text-[9px] tracking-[0.4em] uppercase">Visual Art</span>
         <div className="w-16 h-px bg-white origin-right transition-transform group-hover:scale-x-150" />
       </div>
@@ -191,7 +191,7 @@ export default function Landing() {
       </div>
 
       {/* CTA Section */}
-      <div className="absolute bottom-16 left-0 w-full flex justify-center z-20 pointer-events-none">
+      <div className="absolute bottom-16 left-0 w-full flex justify-center z-20 pointer-events-none max-md:bottom-8">
         <div ref={magneticRef} className="relative group" style={{ width: '240px', height: '64px' }}>
 
           {/* 1. Liquid Glass CTA */}
