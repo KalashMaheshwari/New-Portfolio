@@ -814,9 +814,9 @@ export default function TechStack() {
         className="relative w-full bg-[#1a1a1a] flex flex-col overflow-hidden py-[160px] md:py-[200px] max-md:py-[80px]"
       >
         {/* Ambient glows */}
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#FF6B00]/[0.02] rounded-full blur-[150px] pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-500/[0.015] rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-[#FF6B00]/[0.015] rounded-full blur-[180px] pointer-events-none translate-x-1/3 -translate-y-1/2" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#FF6B00]/[0.02] rounded-full blur-[150px] pointer-events-none max-md:hidden" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-500/[0.015] rounded-full blur-[120px] pointer-events-none max-md:hidden" />
+        <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-[#FF6B00]/[0.015] rounded-full blur-[180px] pointer-events-none translate-x-1/3 -translate-y-1/2 max-md:hidden" />
 
         {/* 3D Canvas */}
         <div className="absolute inset-0 w-full h-full pointer-events-none z-0 max-md:hidden">
@@ -834,7 +834,7 @@ export default function TechStack() {
 
         {/* Sphere edge glow */}
         <div
-          className="absolute top-1/2 -translate-y-1/2 pointer-events-none z-[1]"
+          className="absolute top-1/2 -translate-y-1/2 pointer-events-none z-[1] max-md:hidden"
           style={{
             right: '-60px',
             width: '350px',

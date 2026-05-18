@@ -47,7 +47,7 @@ export default function HeroVideo() {
       
       /* ── Initial states ─────────────────────────────────────────── */
       gsap.set(wrapper, {
-        clipPath: isMobile ? 'inset(24vh 5vw round 18px)' : 'inset(24vh 28vw round 18px)',
+        clipPath: isMobile ? 'inset(40vh 0vw round 0px)' : 'inset(24vh 28vw round 18px)',
         yPercent: 130,
         scale: 0.82,
         rotateX: 10,
@@ -244,6 +244,7 @@ export default function HeroVideo() {
           className="w-full h-full"
           style={{ willChange: 'transform' }}
         >
+          {/* Desktop Video */}
           <video
             ref={(el) => {
               if (el) {
@@ -261,10 +262,34 @@ export default function HeroVideo() {
             muted
             playsInline
             preload="none"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover max-md:hidden"
           >
             <source src="/videos/eye.webm" type="video/webm" />
             <source src="/videos/eye.mp4" type="video/mp4" />
+          </video>
+
+          {/* Mobile Video */}
+          <video
+            ref={(el) => {
+              if (el) {
+                const observer = new IntersectionObserver(
+                  ([entry]) => {
+                    if (entry.isIntersecting) el.play().catch(() => {});
+                    else el.pause();
+                  },
+                  { threshold: 0 }
+                );
+                observer.observe(el);
+              }
+            }}
+            loop
+            muted
+            playsInline
+            preload="none"
+            className="w-full h-full object-cover hidden max-md:block"
+          >
+            <source src="/videos/mobile%20landing.webm" type="video/webm" />
+            <source src="/videos/mobile%20landing.mp4" type="video/mp4" />
           </video>
         </div>
 

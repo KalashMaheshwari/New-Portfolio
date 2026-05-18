@@ -212,7 +212,7 @@ const JourneyMilestone = ({ item, i, activeIndex }: { item: any, i: number, acti
           <div className="flex items-center justify-center gap-4">
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-[#FF6B00]" />
             <span
-              className="text-white/70 text-2xl italic leading-none"
+              className="text-white/70 text-xl italic leading-none"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}
             >
               {item.year}
@@ -223,7 +223,7 @@ const JourneyMilestone = ({ item, i, activeIndex }: { item: any, i: number, acti
           <div style={{ height: '24px', width: '100%' }} />
 
           <h3
-            className="text-[4rem] font-normal tracking-tighter uppercase leading-[0.85] text-transparent bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/30 drop-shadow-2xl"
+            className="text-[3rem] font-normal tracking-tighter uppercase leading-[0.9] text-transparent bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/30 drop-shadow-2xl"
             style={{ fontFamily: 'Anton, sans-serif' }}
           >
             {item.title}
@@ -232,7 +232,7 @@ const JourneyMilestone = ({ item, i, activeIndex }: { item: any, i: number, acti
           <div style={{ height: '24px', width: '100%' }} />
 
           <p 
-            className="text-[18px] font-medium text-white/60 leading-[1.3] max-w-[320px] uppercase tracking-wide"
+            className="text-[15px] font-medium text-white/60 leading-[1.35] max-w-[320px] uppercase tracking-widest"
             style={{ fontFamily: "'Saira Extra Condensed', sans-serif" }}
           >
             {item.description}

@@ -200,12 +200,12 @@ export default function CTA() {
           style={{ fontFamily: "'Anton', sans-serif", lineHeight: 1.0, letterSpacing: '0.02em', fontWeight: 400, textTransform: 'uppercase' }}
         >
           <div className="overflow-hidden pb-2 px-6">
-            <div ref={title1Ref} className="cta-line1" style={{ fontSize: 'clamp(3.5rem, 10vw, 9rem)', color: '#fff', transformOrigin: 'top center', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div ref={title1Ref} className="cta-line1" style={{ fontSize: 'clamp(2.25rem, 9vw, 9rem)', color: '#fff', transformOrigin: 'top center', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
               {splitChars('Have a vision?')}
             </div>
           </div>
           <div className="overflow-hidden pb-6 px-6">
-            <div ref={title2Ref} className="cta-line2" style={{ fontSize: 'clamp(3.5rem, 10vw, 9rem)', color: 'rgba(255,255,255,0.4)', transformOrigin: 'top center', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div ref={title2Ref} className="cta-line2" style={{ fontSize: 'clamp(2.25rem, 9vw, 9rem)', color: 'rgba(255,255,255,0.4)', transformOrigin: 'top center', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
               {splitChars("Let's build it.")}
             </div>
           </div>

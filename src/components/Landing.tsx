@@ -191,7 +191,7 @@ export default function Landing() {
       </div>
 
       {/* CTA Section */}
-      <div className="absolute bottom-16 left-0 w-full flex justify-center z-20 pointer-events-none max-md:bottom-8">
+      <div className="absolute bottom-16 left-0 w-full flex justify-center z-20 pointer-events-none max-md:bottom-24">
         <div ref={magneticRef} className="relative group" style={{ width: '240px', height: '64px' }}>
 
           {/* 1. Liquid Glass CTA */}
