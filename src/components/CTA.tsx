@@ -219,13 +219,12 @@ export default function CTA() {
           <a
             href="mailto:maheshwarikalash@outlook.com"
             ref={buttonWrapRef}
-            className="group relative flex items-center justify-center p-16 cursor-pointer"
+            className="group relative flex items-center justify-center p-16 cursor-pointer z-50"
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHoveringBtn(true)}
             onMouseLeave={handleMouseLeave}
             onFocus={() => setIsHoveringBtn(true)}
             onBlur={handleMouseLeave}
-            style={{ touchAction: 'none' }}
             aria-label="Connect and collaborate"
           >
             {/* 

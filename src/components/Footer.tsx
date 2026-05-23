@@ -127,8 +127,8 @@ export default function Footer() {
           ease: 'none',
           scrollTrigger: {
             trigger: signature,
-            start: 'top bottom', // Fires exactly when the footer border crosses the bottom viewport edge
-            end: 'bottom bottom', // Completes exactly when the bottom of the boundary hits the viewport limit
+            start: 'top 95%', // Starts slightly before the bottom
+            end: 'bottom 95%', // Completes before the absolute bottom to ensure visibility
             scrub: true,
           },
         }
@@ -239,9 +239,9 @@ export default function Footer() {
 
             <ul className="flex flex-col gap-y-[0px]">
               {[
+                { label: 'GITHUB', href: 'https://github.com/KalashMaheshwari' },
                 { label: 'LINKEDIN', href: 'https://www.linkedin.com/in/kalash-maheshwari-7143b0372/' },
                 { label: 'INSTAGRAM', href: 'https://www.instagram.com/klshmatlab/' },
-                { label: 'GITHUB', href: 'https://github.com/KalashMaheshwari' },
                 { label: 'LEGAL', href: '#legal' }
               ].map(({ label, href }) => (
                 <li key={label} className="footer-menu-item shrink-0 leading-[1.1]">

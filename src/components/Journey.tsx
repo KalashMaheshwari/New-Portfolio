@@ -286,16 +286,14 @@ export default function Journey() {
             }
 
             const newActive: number[] = [];
-            const leftBoundary = windowWidth * 0.42;
+            const leftBoundary = windowWidth * 0.42; // Left panel covers 42vw
             const rightBoundary = windowWidth;
-            const currentContainerX = -progress * amountToScroll;
 
             if (horizontal.children) {
               Array.from(horizontal.children).forEach((child, i) => {
-                 const card = child as HTMLElement;
-                 const screenX = card.offsetLeft + currentContainerX;
-                 const screenRight = screenX + card.offsetWidth;
-                 if (screenX < rightBoundary && screenRight > leftBoundary) {
+                 const rect = child.getBoundingClientRect();
+                 // Element is visible if its left edge entered the screen and right edge hasn't passed the left panel
+                 if (rect.left < rightBoundary && rect.right > leftBoundary) {
                     newActive.push(i);
                  }
               });
@@ -367,7 +365,7 @@ export default function Journey() {
 
               <div className="absolute right-[1vw] bottom-0 translate-y-12">
                 <span className="text-8xl font-normal text-white/[0.03] leading-none select-none" style={{ fontFamily: 'Anton, sans-serif' }}>
-                  {String(activeIndex + 1).padStart(2, '0')}
+                  {String((activeIndices[0] || 0) + 1).padStart(2, '0')}
                 </span>
               </div>
             </div>
