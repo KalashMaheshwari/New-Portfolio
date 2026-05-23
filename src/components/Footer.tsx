@@ -241,6 +241,7 @@ export default function Footer() {
               {[
                 { label: 'LINKEDIN', href: 'https://www.linkedin.com/in/kalash-maheshwari-7143b0372/' },
                 { label: 'INSTAGRAM', href: 'https://www.instagram.com/klshmatlab/' },
+                { label: 'GITHUB', href: 'https://github.com/KalashMaheshwari' },
                 { label: 'LEGAL', href: '#legal' }
               ].map(({ label, href }) => (
                 <li key={label} className="footer-menu-item shrink-0 leading-[1.1]">

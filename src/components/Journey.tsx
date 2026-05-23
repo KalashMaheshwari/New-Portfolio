@@ -63,11 +63,11 @@ const JOURNEY_DATA = [
 ];
 
 // ── SUB-COMPONENT: JOURNEY MILESTONE ──
-const JourneyMilestone = ({ item, i, activeIndex }: { item: any, i: number, activeIndex: number }) => {
+const JourneyMilestone = ({ item, i, activeIndices }: { item: any, i: number, activeIndices: number[] }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const isActive = activeIndex === i;
+  const isActive = activeIndices.includes(i);
 
   useEffect(() => {
     if (!cardRef.current || !pinRef.current || !contentRef.current) return;
@@ -255,7 +255,8 @@ export default function Journey() {
   const sectionRef = useRef<HTMLElement>(null);
   const horizontalRef = useRef<HTMLDivElement>(null);
   const progressLineRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndices, setActiveIndices] = useState<number[]>([]);
+  const activeIndicesRef = useRef<number[]>([]);
 
   useEffect(() => {
     let mm = gsap.matchMedia();
@@ -279,14 +280,30 @@ export default function Journey() {
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const progress = self.progress;
-            const idx = Math.min(
-              Math.floor(progress * JOURNEY_DATA.length * 1.1),
-              JOURNEY_DATA.length - 1
-            );
-            setActiveIndex(idx);
             gsap.set(horizontal, { x: -progress * amountToScroll });
             if (progressLine) {
               gsap.set(progressLine, { scaleX: progress });
+            }
+
+            const newActive: number[] = [];
+            const leftBoundary = windowWidth * 0.42;
+            const rightBoundary = windowWidth;
+            const currentContainerX = -progress * amountToScroll;
+
+            if (horizontal.children) {
+              Array.from(horizontal.children).forEach((child, i) => {
+                 const card = child as HTMLElement;
+                 const screenX = card.offsetLeft + currentContainerX;
+                 const screenRight = screenX + card.offsetWidth;
+                 if (screenX < rightBoundary && screenRight > leftBoundary) {
+                    newActive.push(i);
+                 }
+              });
+            }
+
+            if (JSON.stringify(newActive) !== JSON.stringify(activeIndicesRef.current)) {
+               activeIndicesRef.current = newActive;
+               setActiveIndices(newActive);
             }
           }
         });
@@ -394,7 +411,7 @@ export default function Journey() {
             style={{ width: 'max-content' }}
           >
             {JOURNEY_DATA.map((item, i) => (
-              <JourneyMilestone key={i} item={item} i={i} activeIndex={activeIndex} />
+              <JourneyMilestone key={i} item={item} i={i} activeIndices={activeIndices} />
             ))}
 
           </div>
