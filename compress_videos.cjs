@@ -32,6 +32,11 @@ function getFiles(dir, files_ = []) {
 function compressVideos() {
   const files = getFiles(publicDir);
   const videoExtensions = ['.mp4', '.mov', '.avi'];
+  
+  const filterArg = process.argv[2];
+  if (filterArg) {
+    console.log(`Filtering videos to process matching: "${filterArg}"`);
+  }
 
   for (const file of files) {
     const ext = path.extname(file).toLowerCase();
@@ -39,6 +44,10 @@ function compressVideos() {
 
     const dirName = path.dirname(file);
     const baseName = path.basename(file, ext);
+
+    if (filterArg && !file.includes(filterArg) && !baseName.includes(filterArg)) {
+      continue;
+    }
     const webmPath = path.join(dirName, `${baseName}.webm`);
     const mp4CompressedPath = path.join(dirName, `${baseName}_compressed.mp4`);
     const finalMp4Path = path.join(dirName, `${baseName}.mp4`);

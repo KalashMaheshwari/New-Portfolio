@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { motion, useScroll } from 'framer-motion';
+import { motion, useScroll } from 'motion/react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -18,6 +18,11 @@ import CursorNucleus from './components/ui/CursorNucleus';
 import Journey from './components/Journey';
 
 gsap.registerPlugin(ScrollTrigger);
+
+ScrollTrigger.config({ 
+  ignoreMobileResize: true, 
+  syncInterval: 999999999 
+});
 
 export default function App() {
   const lenisRef = useRef<Lenis | null>(null);
@@ -103,7 +108,7 @@ export default function App() {
           left: 0,
           width: '100%',
           height: '100vh',
-          zIndex: 1,
+          zIndex: 1, // Reset to 1 so that scrolling main content covers it
           opacity: preloaderDone ? 1 : 0,
           transition: 'opacity 0.6s ease',
           pointerEvents: preloaderDone ? 'auto' : 'none',
@@ -173,18 +178,19 @@ export default function App() {
           fontFamily: 'var(--font-body)',
           opacity: preloaderDone ? 1 : 0,
           transition: 'opacity 0.6s ease',
+          pointerEvents: 'none', // Allow clicks to pass through to Landing underneath
         }}
       >
         {/* Transparent spacer — lets the fixed Landing show through */}
-        <div style={{ height: '100vh', background: 'transparent' }} />
+        <div style={{ height: '100vh', background: 'transparent', pointerEvents: 'none' }} />
 
         {/* HeroVideo: pinned overlay with scroll-driven animation */}
-        <section className="relative" style={{ zIndex: 10 }}>
+        <section className="relative" style={{ zIndex: 10, pointerEvents: 'auto' }}>
           <HeroVideo />
         </section>
 
         {/* Everything else paints over Landing & video */}
-        <div className="relative z-[40]" style={{ background: 'var(--bg)' }}>
+        <div className="relative z-[40]" style={{ background: 'var(--bg)', pointerEvents: 'auto' }}>
           <section id="manifesto-section">
             <Manifesto />
           </section>
@@ -192,7 +198,7 @@ export default function App() {
           <section id="tech-stack-section">
             <TechStack />
           </section>
-          
+
           <section id="projects-section">
             <Playground />
           </section>

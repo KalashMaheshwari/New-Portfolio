@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,300;1,400;1,500;1,600;1,700&family=Saira+Extra+Condensed:wght@400;700;800;900&display=swap');
 @import "tailwindcss";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -336,10 +335,13 @@ samp,
 }
 
 @keyframes pulse-slow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.1;
     transform: translate(-50%, -50%) scale(1);
   }
+
   50% {
     opacity: 0.2;
     transform: translate(-50%, -50%) scale(1.02);
@@ -716,4 +718,10 @@ button {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* Performance Optimizations */
+.contain-paint-transform {
+  will-change: transform, opacity;
+  contain: paint;
 }

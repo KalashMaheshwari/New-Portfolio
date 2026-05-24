@@ -34,13 +34,13 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       setTimeout(() => {
         if (video) {
           video.currentTime = 0;
-          video.play().catch(() => {});
+          video.play().catch(() => { });
         }
       }, 1000);
     };
 
     video.addEventListener('ended', handleVideoEnd);
-    video.play().catch(() => {});
+    video.play().catch(() => { });
 
     // SVG Circle setup
     const circumference = 2 * Math.PI * 20;
@@ -60,7 +60,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         val: Math.min(target, 100),
         duration: 0.6,
         ease: 'power2.out',
-        onUpdate: function() {
+        onUpdate: function () {
           const currentVal = Math.floor(this.targets()[0].val);
           realProgress = currentVal;
           setPercent(currentVal);
@@ -122,7 +122,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       isLoaded = true;
 
       const elapsed = Date.now() - startLoading;
-      const minimumDisplayTime = 2500;
+      const minimumDisplayTime = 2000;
       const remainingTime = Math.max(0, minimumDisplayTime - elapsed);
 
       setTimeout(() => {
@@ -131,7 +131,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           val: 100,
           duration: 0.6,
           ease: 'power3.out',
-          onUpdate: function() {
+          onUpdate: function () {
             const currentVal = Math.floor(this.targets()[0].val);
             setPercent(currentVal);
             const offset = circumference - (currentVal / 100) * circumference;
@@ -214,7 +214,18 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     >
       {/* Top-left decorative 3D loop */}
       <div className="absolute top-6 left-6 sm:top-8 sm:left-8 w-16 h-16 pointer-events-none opacity-30 z-10">
-        <img src="/3d.gif" alt="3D Hologram" className="w-full h-full object-contain" />
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          disablePictureInPicture
+          controls={false}
+          className="w-full h-full object-contain contain-paint-transform"
+        >
+          <source src="/videos/3d-hologram.webm" type="video/webm" />
+          <source src="/videos/3d-hologram.mp4" type="video/mp4" />
+        </video>
       </div>
       {/* Subtle Grain Texture */}
       <div
@@ -226,7 +237,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
       {/* Center Container - Stacked for perfect centering */}
       <div className="relative flex items-center justify-center z-10 w-[320px] h-[320px] sm:w-[400px] sm:h-[400px]">
-        
+
         {/* Video Layer */}
         <video
           ref={videoRef}

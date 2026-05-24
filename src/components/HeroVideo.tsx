@@ -44,7 +44,7 @@ export default function HeroVideo() {
 
     const ctx = gsap.context(() => {
       const isMobile = window.innerWidth < 768;
-      
+
       /* ── Initial states ─────────────────────────────────────────── */
       gsap.set(wrapper, {
         clipPath: isMobile ? 'inset(40vh 0vw round 0px)' : 'inset(24vh 28vw round 18px)',
@@ -250,7 +250,7 @@ export default function HeroVideo() {
               if (el) {
                 const observer = new IntersectionObserver(
                   ([entry]) => {
-                    if (entry.isIntersecting) el.play().catch(() => {});
+                    if (entry.isIntersecting) el.play().catch(() => { });
                     else el.pause();
                   },
                   { threshold: 0 }
@@ -274,7 +274,7 @@ export default function HeroVideo() {
               if (el) {
                 const observer = new IntersectionObserver(
                   ([entry]) => {
-                    if (entry.isIntersecting) el.play().catch(() => {});
+                    if (entry.isIntersecting) el.play().catch(() => { });
                     else el.pause();
                   },
                   { threshold: 0 }

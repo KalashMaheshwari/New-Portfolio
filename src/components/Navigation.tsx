@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence, useAnimate } from 'framer-motion';
+import { motion, AnimatePresence, useAnimate } from 'motion/react';
 
 /**
  * Premium Navigation Menu — Swiss Style, Neue Montreal

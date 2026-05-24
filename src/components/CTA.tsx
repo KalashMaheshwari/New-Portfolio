@@ -225,6 +225,9 @@ export default function CTA() {
             onMouseLeave={handleMouseLeave}
             onFocus={() => setIsHoveringBtn(true)}
             onBlur={handleMouseLeave}
+            onClick={() => {
+              window.location.href = "mailto:maheshwarikalash@outlook.com";
+            }}
             aria-label="Connect and collaborate"
           >
             {/* 
@@ -300,7 +303,7 @@ export default function CTA() {
                   >
                     Connect
                   </span>
-                  
+
                   {/* Premium Diagonal Arrow */}
                   <motion.svg
                     width="24"
@@ -309,7 +312,7 @@ export default function CTA() {
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                     className="ml-4"
-                    animate={{ 
+                    animate={{
                       x: isHoveringBtn ? 4 : 0,
                       y: isHoveringBtn ? -4 : 0,
                       opacity: isHoveringBtn ? 1 : 0.7

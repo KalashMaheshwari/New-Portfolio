@@ -35,7 +35,7 @@ export default function Skills() {
     const video = videoRefs.current[index];
     if (video) {
       video.currentTime = 0;
-      video.play().catch(() => {});
+      video.play().catch(() => { });
     }
 
     const row = rowRefs.current[index];
@@ -132,7 +132,19 @@ export default function Skills() {
           >
             SKILLS
           </span>
-          <img src="/3d.gif" alt="3D Hologram" className="absolute right-0 top-[-20px] w-36 h-36 opacity-100 pointer-events-none object-contain" style={{ filter: 'invert(1)' }} />
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            disablePictureInPicture
+            controls={false}
+            className="absolute right-0 top-[-20px] w-36 h-36 opacity-100 pointer-events-none object-contain contain-paint-transform"
+            style={{ filter: 'invert(1)' }}
+          >
+            <source src="/videos/3d-hologram.webm" type="video/webm" />
+            <source src="/videos/3d-hologram.mp4" type="video/mp4" />
+          </video>
           <p
             style={{
               fontFamily: 'var(--font-mono)', fontSize: '9px', fontWeight: 400,
@@ -158,7 +170,7 @@ export default function Skills() {
           >
             Skills & Expertise
           </h2>
-          <div 
+          <div
             className="mt-6 opacity-30 font-mono text-[8px] md:text-[9px] uppercase tracking-[0.4em] relative z-10"
             style={{ maxWidth: '400px', lineHeight: 1.6 }}
           >
@@ -256,9 +268,9 @@ export default function Skills() {
             playsInline
             preload="none"
             className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
-            style={{ 
+            style={{
               opacity: hoveredIndex === i ? 1 : 0,
-              filter: 'contrast(1.1) brightness(0.85)' 
+              filter: 'contrast(1.1) brightness(0.85)'
             }}
           >
             <source src={`${skill.video}.webm`} type="video/webm" />
