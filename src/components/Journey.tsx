@@ -269,18 +269,24 @@ export default function Journey() {
 
         const totalWidth = horizontal.scrollWidth;
         const windowWidth = window.innerWidth;
-        const amountToScroll = totalWidth - windowWidth;
+        // The right timeline panel is 58% of the screen width. Mapped scroll should account for the visible width (58vw) rather than full windowWidth (100vw).
+        const visibleWidth = windowWidth * 0.58;
+        const amountToScroll = totalWidth - visibleWidth;
+        const scrollBuffer = 300; // Extra scroll pixels for viewing the last item
 
         ScrollTrigger.create({
           trigger: section,
           pin: true,
           start: "top top",
-          end: () => `+=${totalWidth}`,
+          end: () => `+=${totalWidth + scrollBuffer}`,
           scrub: 1.2,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const progress = self.progress;
-            gsap.set(horizontal, { x: -progress * amountToScroll });
+            const activeScrollRatio = totalWidth / (totalWidth + scrollBuffer);
+            const activeProgress = Math.min(progress / activeScrollRatio, 1);
+
+            gsap.set(horizontal, { x: -activeProgress * amountToScroll });
             if (progressLine) {
               gsap.set(progressLine, { scaleX: progress });
             }

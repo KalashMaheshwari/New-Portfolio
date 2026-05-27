@@ -48,7 +48,7 @@ export default function HeroVideo() {
       /* ── Initial states ─────────────────────────────────────────── */
       gsap.set(wrapper, {
         clipPath: isMobile ? 'inset(40vh 0vw round 0px)' : 'inset(24vh 28vw round 18px)',
-        yPercent: 130,
+        yPercent: 100,
         scale: 0.82,
         rotateX: 10,
         rotateY: -2,
@@ -59,7 +59,7 @@ export default function HeroVideo() {
       });
 
       gsap.set(inner, { scale: 1.18, force3D: true });
-      gsap.set(shadow, { opacity: 0, yPercent: 130 });
+      gsap.set(shadow, { opacity: 0, yPercent: 100 });
       gsap.set(bloom, { opacity: 0 });
 
       // Letterbox bars — start visible (cinematic framing)
@@ -69,128 +69,129 @@ export default function HeroVideo() {
       // Vignette — starts soft
       gsap.set(vignette, { opacity: 0.3 });
 
-      /* ── Master timeline ────────────────────────────────────────── */
-      const tl = gsap.timeline({
+      /* ── Stage 1: Entrance (From bottom of screen to top of screen) ── */
+      const tlEntrance = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          start: 'top top',
-          end: '+=220%',
-          pin: true,
-          scrub: 1,
+          start: 'top bottom',
+          end: 'top top',
+          scrub: true,
         },
       });
 
-      /* ═══ Phase 1 (0 → 0.30): ENTRANCE ═══════════════════════════ */
-
       // Video rises from below, un-tilts, materializes
-      tl.to(wrapper, {
+      tlEntrance.to(wrapper, {
         yPercent: 0,
         scale: 1,
         rotateX: 0,
         rotateY: 0,
         opacity: 1,
-        duration: 0.30,
-        ease: 'power3.out',
+        ease: 'none',
       }, 0);
 
       // Shadow rises at 70% speed → parallax depth illusion
-      tl.to(shadow, {
+      tlEntrance.to(shadow, {
         opacity: 0.8,
         yPercent: 0,
-        duration: 0.30,
-        ease: 'power2.out',
-      }, 0.02);
+        ease: 'none',
+      }, 0);
 
       // Landing blurs & dims behind
       if (landing) {
-        tl.fromTo(landing,
+        tlEntrance.fromTo(landing,
           { filter: 'blur(0px) brightness(1)', scale: 1 },
           {
             filter: 'blur(30px) brightness(0.3)',
             scale: 1.08,
-            duration: 0.45,
-            ease: 'power1.in',
+            ease: 'none',
           },
-          0.08,
+          0,
         );
       }
 
       // Letterbox bars appear (cinematic framing of the window)
-      tl.fromTo(barTop,
+      tlEntrance.fromTo(barTop,
         { scaleX: 0 },
-        { scaleX: 1, duration: 0.20, ease: 'power2.out' },
-        0.15,
+        { scaleX: 1, ease: 'none' },
+        0,
       );
-      tl.fromTo(barBot,
+      tlEntrance.fromTo(barBot,
         { scaleX: 0 },
-        { scaleX: 1, duration: 0.20, ease: 'power2.out' },
-        0.17,
+        { scaleX: 1, ease: 'none' },
+        0,
       );
 
       // Vignette intensifies during floating window
-      tl.to(vignette, {
+      tlEntrance.to(vignette, {
         opacity: 0.7,
-        duration: 0.25,
-        ease: 'power1.in',
-      }, 0.10);
+        ease: 'none',
+      }, 0);
 
-      /* ═══ Phase 2 (0.30 → 0.85): EXPANSION ══════════════════════ */
+
+      /* ── Stage 2: Pinning & Expansion (At the top of screen) ── */
+      const tlExpansion = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: '+=180%',
+          pin: true,
+          scrub: true,
+        },
+      });
 
       // Clip-path opens from window to fullscreen
-      tl.to(wrapper, {
+      tlExpansion.to(wrapper, {
         clipPath: 'inset(0vh 0vw round 0px)',
-        duration: 0.55,
+        duration: 0.6,
         ease: 'power2.inOut',
-      }, 0.30);
+      }, 0);
 
       // Ken Burns zoom-pull settles
-      tl.to(inner, {
+      tlExpansion.to(inner, {
         scale: 1,
-        duration: 0.55,
+        duration: 0.6,
         ease: 'power2.out',
         force3D: true,
-      }, 0.30);
+      }, 0);
 
       // Shadow grows larger and dissolves
-      tl.to(shadow, {
+      tlExpansion.to(shadow, {
         opacity: 0,
         scale: 1.5,
         duration: 0.40,
         ease: 'power2.in',
-      }, 0.45);
+      }, 0.15);
 
       // Letterbox bars slide away as video goes fullscreen
-      tl.to(barTop, {
+      tlExpansion.to(barTop, {
         scaleX: 0,
         duration: 0.30,
         ease: 'power3.in',
-      }, 0.55);
-      tl.to(barBot, {
+      }, 0.3);
+      tlExpansion.to(barBot, {
         scaleX: 0,
         duration: 0.30,
         ease: 'power3.in',
-      }, 0.57);
+      }, 0.3);
 
       // Vignette fades as it goes fullscreen
-      tl.to(vignette, {
+      tlExpansion.to(vignette, {
         opacity: 0,
         duration: 0.35,
         ease: 'power2.out',
-      }, 0.55);
-
-      /* ═══ Phase 3 (0.85 → 1.0): BLOOM & SETTLE ═════════════════ */
+      }, 0.3);
 
       // White bloom flash — subtle "camera lock" moment
-      tl.to(bloom, {
+      tlExpansion.to(bloom, {
         opacity: 0.15,
-        duration: 0.08,
+        duration: 0.1,
         ease: 'power4.in',
-      }, 0.82);
-      tl.to(bloom, {
+      }, 0.5);
+      tlExpansion.to(bloom, {
         opacity: 0,
         duration: 0.15,
         ease: 'power2.out',
-      }, 0.90);
+      }, 0.6);
 
     }, section);
 

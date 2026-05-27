@@ -28,13 +28,13 @@ export const LiquidGlass: React.FC<LiquidGlassProps> = ({
                 className={`
                     relative flex items-center justify-center gap-4 
                     px-10 py-5
-                    bg-white/[0.12] 
-                    backdrop-blur-[5px] backdrop-saturate-[150%] backdrop-brightness-[1.2]
-                    border border-white/20 rounded-full
+                    bg-black/[0.45] 
+                    backdrop-blur-[10px] backdrop-saturate-[120%] backdrop-brightness-[0.8]
+                    border border-white/10 rounded-full
                     text-white font-medium
                     transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]
-                    hover:bg-white/[0.18] hover:border-white/30
-                    hover:shadow-[0_15px_35px_rgba(0,0,0,0.3),inset_0_0_0_1px_rgba(255,255,255,0.1)]
+                    hover:bg-black/[0.65] hover:border-white/20
+                    hover:shadow-[0_15px_35px_rgba(0,0,0,0.5),inset_0_0_0_1px_rgba(255,255,255,0.05)]
                     active:scale-[0.97]
                     overflow-hidden
                     ${className}
@@ -57,7 +57,7 @@ export const LiquidGlass: React.FC<LiquidGlassProps> = ({
                 />
 
                 {/* 7. Content Container */}
-                <div className="relative z-10 flex items-center gap-3 drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
+                <div className="relative z-10 w-full h-full flex items-center justify-center drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
                     {children}
                 </div>
             </button>

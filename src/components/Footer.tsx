@@ -214,6 +214,10 @@ export default function Footer() {
           ))}
         </div>
 
+        {/* Brute-force blank space above the menus */}
+        <div style={{ height: '48px', width: '100%' }} className="max-md:hidden" />
+        <div style={{ height: '24px', width: '100%' }} className="hidden max-md:block" />
+
         {/* ROW 3: FOOTER MENUS (12-Column grid targeting Col 1 and Col 7 splits exactly as in photograph) */}
         <div className="grid grid-cols-12 gap-y-16 gap-x-6 w-full mb-32 md:mb-48 text-[#d4d4d4]">
 

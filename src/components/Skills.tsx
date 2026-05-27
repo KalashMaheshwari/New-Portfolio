@@ -110,6 +110,10 @@ export default function Skills() {
       className="relative w-full flex flex-col items-start overflow-hidden skills-light-section pt-40 pb-40 max-md:!py-20"
       style={{ contain: 'paint' }}
     >
+      {/* Brute-force blank space at the top of Skills section */}
+      <div style={{ height: '48px', width: '100%' }} className="max-md:hidden" />
+      <div style={{ height: '24px', width: '100%' }} className="hidden max-md:block" />
+
       <div className="w-full flex flex-col items-start relative z-10" style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 clamp(1.5rem, 8vw, 10rem)' }}>
         {/* Header */}
         <div ref={headerRef} className="w-full flex flex-col items-start text-left relative" style={{ marginBottom: '5rem' }}>
@@ -282,6 +286,10 @@ export default function Skills() {
           style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.2) 0%, transparent 50%, rgba(0,0,0,0.1) 100%)' }}
         />
       </div>
+
+      {/* Brute-force blank space at the bottom of Skills section */}
+      <div style={{ height: '48px', width: '100%' }} className="max-md:hidden" />
+      <div style={{ height: '24px', width: '100%' }} className="hidden max-md:block" />
     </section>
   );
 }

@@ -43,17 +43,17 @@ export default function Manifesto() {
       const lines = gsap.utils.toArray('.manifesto-line');
       gsap.fromTo(
         lines,
-        { y: '120%', opacity: 0, filter: 'blur(24px)' },
+        { y: '50%', opacity: 0, filter: 'blur(8px)' },
         {
           y: '0%',
           opacity: 1,
           filter: 'blur(0px)',
-          duration: 1.4,
-          stagger: 0.12,
-          ease: 'power3.out',
+          duration: 0.8,
+          stagger: 0.06,
+          ease: 'power2.out',
           scrollTrigger: {
             trigger: containerRef.current,
-            start: 'top 75%',
+            start: 'top 90%',
           },
         }
       );

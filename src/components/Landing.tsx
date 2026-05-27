@@ -129,21 +129,42 @@ export default function Landing() {
       </div>
 
       {/* CTA Section */}
-      <div className="absolute bottom-16 left-0 w-full flex justify-center z-20 pointer-events-auto max-md:bottom-24">
+      <div className="absolute bottom-16 left-0 w-full flex justify-center z-20 pointer-events-auto max-md:bottom-24 translate-x-6">
         <div className="relative group" style={{ width: '240px', height: '64px' }}>
 
           {/* 1. Liquid Glass CTA */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <LiquidGlass
-              className="w-[210px] h-[64px] rounded-full"
+              className="w-[230px] h-[64px] rounded-full !px-5 !py-0"
             >
-              <div className="flex items-center justify-center w-full h-full">
-                <span
-                  className="text-sm font-semibold tracking-[0.25em] uppercase text-white transition-all duration-500 group-hover:tracking-[0.32em] group-hover:text-[#FF6B00]"
-                  style={{ fontFamily: "'Neue Montreal', 'Outfit', sans-serif" }}
-                >
-                  Explore
-                </span>
+              <div className="flex items-center justify-center gap-5 w-full h-full">
+                {/* Text Block */}
+                <div className="flex flex-col items-start justify-center text-left leading-none select-none">
+                  <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/50 transition-colors duration-500 group-hover:text-white/70">
+                    proceed
+                  </span>
+                  <span
+                    className="text-[13px] font-bold tracking-[0.2em] uppercase text-white mt-1.5 transition-all duration-500 group-hover:text-[#FF6B00] group-hover:tracking-[0.23em]"
+                    style={{ fontFamily: "'Neue Montreal', 'Outfit', sans-serif" }}
+                  >
+                    explore
+                  </span>
+                </div>
+                
+                {/* Arrow Circle */}
+                <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-white overflow-hidden transition-all duration-500 group-hover:scale-110 shadow-[0_2px_8px_rgba(255,255,255,0.25)]">
+                  {/* Liquid Orange Fill */}
+                  <div className="absolute inset-0 bg-[#FF6B00] translate-y-full rounded-t-[50%] transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 z-10" />
+                  
+                  {/* Arrow SVG */}
+                  <svg
+                    className="relative z-20 w-3.5 h-3.5 text-black transition-all duration-500 ease-out group-hover:rotate-45"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" />
+                  </svg>
+                </div>
               </div>
             </LiquidGlass>
           </div>

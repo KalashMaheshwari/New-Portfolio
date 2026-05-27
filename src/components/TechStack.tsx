@@ -42,10 +42,10 @@ const TechCard = ({ tech, index }: { tech: (typeof DATA)[0]; index: number }) =>
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      initial={{ opacity: 0, y: 12, scale: 0.96 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-      transition={{ duration: 0.5, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      exit={{ opacity: 0, y: -8, scale: 0.96 }}
+      transition={{ duration: 0.35, delay: index * 0.03, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -4, scale: 1.03 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
@@ -103,10 +103,10 @@ export default function TechStack() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 90%' },
       });
-      tl.fromTo('.tech-reveal', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out' });
-      tl.fromTo('.tech-line', { scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: 'power3.inOut' }, '-=0.4');
+      tl.fromTo('.tech-reveal', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out' });
+      tl.fromTo('.tech-line', { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: 'power2.inOut' }, '-=0.25');
     }, sectionRef);
     return () => ctx.revert();
   }, []);
