@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -6,436 +6,348 @@ gsap.registerPlugin(ScrollTrigger);
 
 const JOURNEY_DATA = [
   {
-    year: "2018 — 2019",
-    category: "LOGIC / INCEPTION",
-    title: "THE START",
-    metadata: "ISO:100 // PHASE:01",
-    description: "Discovering the core architecture of logic through Scratch. Stripping away complexity to focus on pure algorithmic patterns.",
+    epoch: "ANNO COGNITIONIS",
+    era: "THE GENESIS OF REASON // EPOCH I",
+    title: "THE FIRST SPARK",
+    decree: "DECREE OF THE FOUNDATION",
+    description: "BEFORE THE ARCHITECTURE COULD RISE, THE MIND SOUGHT THE PURITY OF ABSOLUTE GEOMETRY. DISCOVERING THE FIRST PRISTINE PATTERNS OF REASON—STRIPPING AWAY METRIC ORNAMENTATION TO UNDERSTAND THE RECTILINEAR LOGIC THAT GOVERNS ALL CREATIVE THOUGHT.",
     image: "/images/journey/inception.png",
-    specs: { latency: "0.2ms", commit: "INIT_01", load: "98%" }
+    decor: "/images/journey/bust1.avif",
+    monument: "THE ACADEMY CORE",
+    coordinates: "ATHENS CORE // ANCHOR .01"
   },
   {
-    year: "2021 — 2022",
-    category: "STRUCTURE / CORE",
-    title: "FOUNDATION",
-    metadata: "ISO:200 // PHASE:02",
-    description: "Mastering HTML & Python fundamentals. Building the structural integrity required for complex system engineering.",
+    epoch: "ANNO ARCHITECTURA",
+    era: "ORDER AND SYMMETRY // EPOCH II",
+    title: "FOUNDING PILLARS",
+    decree: "DECREE OF THE DORIC AXIS",
+    description: "MASTERING THE STRUCTURAL SPECTRUM AND COMPOSITIONAL INTEGRITY NECESSARY TO SUSPEND MASSIVE CANVASES IN SPACE. RECONSTRUCTING CODE AS CHISELED MARBLE—ESTABLISHING SYSTEM ARCHITECTURES RIGID ENOUGH TO DEFY TIME AND SUPPORT EXPANSE.",
     image: "/images/journey/foundation.png",
-    specs: { latency: "1.4ms", commit: "CORE_X", load: "94%" }
+    decor: "/images/journey/bust2.avif",
+    monument: "PROPYLAEA GATEWAYS",
+    coordinates: "THE IONIC VAULT // SCALE .02"
   },
   {
-    year: "2023 — 2024",
-    yearShort: "2023",
-    category: "EXPANSION / SCALE",
-    title: "EVOLUTION",
-    metadata: "ISO:400 // PHASE:03",
-    description: "Scaling the technical stack with SQL, C++, and advanced web architecture. Transitioning from scripts to scalable ecosystems.",
+    epoch: "ANNO EVOLUTIO",
+    era: "THE CORINTHIAN EXPANSE // EPOCH III",
+    title: "GRAND ASCENSION",
+    decree: "DECREE OF THE VAST HORIZON",
+    description: "SCALING THE FRONTIERS OF CREATIVE EXPRESSION WITH COMPLEX STRUCTURAL GRIDS AND DEEP ARCHITECTURAL ALGORITHMS. THE METAMORPHOSIS FROM SINGLE ARCHITECTURAL ELEMENTS INTO SCALEABLE, SEAMLESSLY INTERCONNECTED LANDSCAPES OF HUMAN EXPERIENCE.",
     image: "/images/journey/evolution.png",
-    specs: { latency: "2.8ms", commit: "SCALE_V2", load: "89%" }
+    decor: "/images/journey/bust3.avif",
+    monument: "THE OLYMPIEION SPAN",
+    coordinates: "CHRONOS METRIC // GRID .03"
   },
   {
-    year: "2024 — 2025",
-    category: "THEORY / DEPTH",
-    title: "STRATEGIC",
-    metadata: "ISO:800 // PHASE:04",
-    description: "A period of intensive theoretical study and disciplined practice. Optimizing the mind for high-level problem solving.",
+    epoch: "ANNO PHILOSOPHIA",
+    era: "THE GREAT CONTEMPLATION // EPOCH IV",
+    title: "STRATEGIC BREAK",
+    decree: "DECREE OF THE INTERNAL SACRED",
+    description: "A DELIBERATE RETREAT INTO ABSOLUTE THEORETICAL ISOLATION AND INTENSE DISCIPLINE. MEDITATING ON INTERACTION COMPOSITIONS AND CRAFTING DESIGN METHODOLOGIES THAT ELEVATE ORDINARY INTERFACES INTO IMMORTAL PIECES OF DIGITAL ART.",
     image: "/images/journey/strategic_break.png",
-    specs: { latency: "0.8ms", commit: "OPT_MAX", load: "100%" }
+    decor: "/images/journey/bust4.avif",
+    monument: "TEMPLE OF ATHENA",
+    coordinates: "INNER SANCTUM // VOID .04"
   },
   {
-    year: "2025 — 2026",
-    category: "DEPLOY / FLOW",
-    title: "PROFESSIONAL",
-    metadata: "ISO:1600 // PHASE:05",
-    description: "Bridging the gap between raw code and professional deployment. Exploring the intersection of AI, ML, and Data Science.",
+    epoch: "ANNO PROFESSIO",
+    era: "THE TRIUMPHANT RETURN // EPOCH V",
+    title: "MASTER MANIFESTO",
+    decree: "DECREE OF THE LIVING METROPOLIS",
+    description: "BRIDGING THE SEAMLESS CHASM BETWEEN CONCEPTUAL PHILOSOPHY AND EXQUISITE REAL-WORLD DEPLOYMENT. TRANSLATING COMPLEX SYSTEMS, INTELLIGENT ALGORITHMS, AND DATA ARCHITECTURE INTO HIGH-END EMOTIONAL DIGITAL NARRATIVES FOR THE MODERN CONNOISSEUR.",
     image: "/images/journey/professional.png",
-    specs: { latency: "4.2ms", commit: "DEPLOY_S", load: "92%" }
+    decor: "/images/journey/bust5.avif",
+    monument: "THE PARTHENON APEX",
+    coordinates: "REALM OF THE SEERS // PLOT .05"
   },
   {
-    year: "mid 2026",
-    category: "ADVANCED / R&D",
-    title: "NEURAL",
-    metadata: "ISO:3200 // PHASE:06",
-    description: "Deep diving into neural networks and distributed systems. Pursuing the pinnacle of computer science and data engineering.",
+    epoch: "ANNO INTELLECTUS",
+    era: "THE TRANSCENDENTAL HEIGHTS // EPOCH VI",
+    title: "NEURAL CITADEL",
+    decree: "DECREE OF THE SOVEREIGN INTELLIGENCE",
+    description: "DEEP DIVING INTO INDEPENDENT NEURAL NETWORKS AND DISTRIBUTED SYSTEM DESIGN. PURSUING THE ABSOLUTE PINNACLE OF SACRED GEOMETRIC ENGINEERING AND DISTRIBUTED MACHINE REASONING—WHERE THE DIGITAL EMULATES THE COGNITIVE ORDER OF THE GODS.",
     image: "/images/journey/research.png",
-    specs: { latency: "8.5ms", commit: "NEURAL_F", load: "85%" }
+    decor: "/images/journey/bust6.avif",
+    monument: "THE DELPHIC ORACLE",
+    coordinates: "KINETIC CANVAS // APEX .06"
   }
 ];
 
-// ── SUB-COMPONENT: JOURNEY MILESTONE ──
-const JourneyMilestone = ({ item, i, activeIndices }: { item: any, i: number, activeIndices: number[] }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const pinRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const isActive = activeIndices.includes(i);
+export default function Journey() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!cardRef.current || !pinRef.current || !contentRef.current) return;
-
     let mm = gsap.matchMedia();
 
     mm.add("(min-width: 768px)", () => {
-      if (isActive) {
-        // Entrance Animation
-        gsap.to(cardRef.current, { rotateX: 45, translateZ: 20, duration: 1.4, ease: "power3.out" });
-        gsap.to(pinRef.current, { height: 160, translateZ: 2, opacity: 1, duration: 1.4, ease: "power3.out" });
-        gsap.to(contentRef.current, { opacity: 1, y: 0, z: 40, duration: 1.2, delay: 0.1, ease: "power2.out" });
-      } else {
-        // Exit Animation
-        gsap.to(cardRef.current, { rotateX: 0, translateZ: 0, duration: 1, ease: "power2.inOut" });
-        gsap.to(pinRef.current, { height: 0, translateZ: -100, opacity: 0, duration: 0.8, ease: "power2.in" });
-        gsap.to(contentRef.current, { opacity: 0, y: 40, duration: 0.6, ease: "power2.in" });
-      }
+      const section = sectionRef.current;
+      const header = headerRef.current;
+      const canvas = canvasRef.current;
+      const map = mapRef.current;
+      if (!section || !header || !canvas || !map) return;
+
+      const stepX = window.innerWidth * 1.3; 
+      const stepY = window.innerHeight * 0.95; 
+      
+      const totalTravelX = (JOURNEY_DATA.length - 1) * stepX;
+      const totalTravelY = (JOURNEY_DATA.length - 1) * stepY;
+
+      Array.from(map.children).forEach((child, i) => {
+        gsap.set(child, { 
+          x: i * stepX, 
+          y: i * stepY 
+        });
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          pin: true,
+          scrub: 1,
+          start: "top top",
+          end: () => `+=${window.innerHeight * (JOURNEY_DATA.length * 1.75)}`,
+          invalidateOnRefresh: true,
+        }
+      });
+
+      tl.to(header, {
+        xPercent: -100,
+        duration: 1.0,
+        ease: "none"
+      }, 0);
+
+      tl.fromTo(map, 
+        { x: window.innerWidth * 0.8 }, 
+        {
+          x: 0,
+          y: 0,
+          duration: 1.0,
+          ease: "none"
+        }, 
+        0
+      );
+
+      tl.to(map, {
+        x: -totalTravelX,
+        y: -totalTravelY,
+        duration: 6.5,
+        ease: "none"
+      }, 1.0);
+
     });
 
     return () => mm.revert();
-  }, [isActive]);
+  }, []);
 
   return (
-    <div
-      className="editorial-spread flex-shrink-0 w-[500px] lg:w-[600px] h-full relative flex items-center justify-center max-md:!w-full max-md:!h-[60vh] max-md:!mx-0"
-      style={{ marginLeft: '12vw', marginRight: '12vw' }}
+    <section 
+      ref={sectionRef} 
+      id="journey" 
+      className="relative w-full h-screen bg-[#0a0a0a] overflow-hidden select-none max-md:hidden"
     >
-      {/* ── DESKTOP ONLY: 3D CARD ── */}
-      <div className="relative w-full aspect-[16/9] z-10 max-md:hidden" style={{ perspective: '3000px' }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap');
+        
+        .gpu-layer {
+          will-change: transform;
+          backface-visibility: hidden;
+          transform: translateZ(0);
+        }
+        .greek-axis-line {
+          background: linear-gradient(90deg, transparent, rgba(255, 107, 0, 0.2) 20%, rgba(255, 107, 0, 0.2) 80%, transparent);
+        }
+        
+        /* Premium Ambient Animations */
+        @keyframes slow-breathe {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-15px); }
+        }
+        @keyframes slow-breathe-reverse {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(15px); }
+        }
+        .animate-breathe { animation: slow-breathe 10s ease-in-out infinite; }
+        .animate-breathe-reverse { animation: slow-breathe-reverse 12s ease-in-out infinite; }
+        
+        /* High-End Film Grain */
+        .film-grain {
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+          opacity: 0.04;
+          pointer-events: none;
+          z-index: 50;
+        }
+      `}</style>
 
-        {/* The Tilting Card Container */}
-        <div
-          ref={cardRef}
-          className="w-full h-full relative"
-          style={{
-            transformOrigin: 'bottom center',
-            transformStyle: 'preserve-3d',
-          }}
-        >
-          {/* Image Layer */}
-          <div className="relative w-full h-full overflow-hidden border border-white/10 bg-[#111] shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
-            <img
-              src={item.image}
-              alt={item.title}
-              className={`w-full h-full object-cover transition-opacity duration-1000 ${isActive ? 'opacity-100 grayscale-0' : 'opacity-40 grayscale'}`}
-            />
+      {/* ══ LAYER 1: TITLE BLOCK WITH AMBIENT ANIMATIONS ══ */}
+      <div 
+        ref={headerRef} 
+        className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-[#0a0a0a] gpu-layer overflow-hidden"
+      >
+        <div className="absolute inset-0 film-grain" />
+
+        {/* Left Bust Anchor */}
+        <div className="absolute top-[8%] left-[4%] w-[45vh] h-[65vh] pointer-events-none opacity-[0.18] mix-blend-lighten grayscale z-0 animate-breathe">
+          <img src="/images/journey/Hbust1.avif" alt="Classical Decor" className="w-full h-full object-contain object-left" />
+        </div>
+        
+        {/* Right Bust Anchor */}
+        <div className="absolute top-[38%] right-[4%] w-[45vh] h-[65vh] pointer-events-none opacity-[0.18] mix-blend-lighten grayscale z-0 animate-breathe-reverse">
+          <img src="/images/journey/Hbust2.avif" alt="Classical Decor" className="w-full h-full object-contain object-right" />
+        </div>
+
+        {/* Fine Architectural Crosshairs */}
+        <div className="absolute top-[28%] left-[28%] w-3 h-3 border-t border-l border-[#FF6B00]/40 z-10" />
+        <div className="absolute bottom-[28%] right-[28%] w-3 h-3 border-b border-r border-[#FF6B00]/40 z-10" />
+
+        {/* Top Alignment Line */}
+        <div className="flex items-center justify-center mb-8 gap-6 z-10">
+          <div className="h-[1px] w-24 bg-gradient-to-r from-transparent to-[#FF6B00]/40" />
+          <div className="text-[9px] text-[#FF6B00]/90 tracking-[0.5em] font-serif uppercase">Index // 00</div>
+          <div className="h-[1px] w-24 bg-gradient-to-l from-transparent to-[#FF6B00]/40" />
+        </div>
+
+        {/* Refined Title Lockup */}
+        <div className="relative flex items-center gap-6 z-10">
+          <span className="text-[9vw] font-light text-white/10 leading-none pb-2 font-serif" style={{ fontFamily: "'Cinzel', serif" }}>[</span>
+          <div className="flex flex-col items-center pt-2">
+            <h2 className="text-[3vw] font-light tracking-[0.5em] text-white/50 uppercase leading-none mb-3" style={{ fontFamily: "'Cinzel', serif" }}>THE</h2>
+            <h2 className="text-[7.5vw] font-bold tracking-[0.2em] text-[#FF6B00] uppercase leading-none drop-shadow-[0_0_35px_rgba(255,107,0,0.3)]" style={{ fontFamily: "'Cinzel', serif" }}>JOURNEY</h2>
           </div>
+          <span className="text-[9vw] font-light text-white/10 leading-none pb-2 font-serif" style={{ fontFamily: "'Cinzel', serif" }}>]</span>
+        </div>
 
-          {/* COLORED PRECISION PIN (Anchored to Middle) */}
-          <div
-            className="absolute inset-0 flex justify-center pointer-events-none z-10"
-            style={{ transformStyle: 'preserve-3d' }}
-          >
-            {/* The Zero-Size Anchor Point at the middle of the image (Adjusted for perspective) */}
-            <div className="relative w-0 h-0 top-[60%]" style={{ transformStyle: 'preserve-3d' }}>
-              <div
-                ref={pinRef}
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[3px] origin-bottom opacity-0"
-                style={{
-                  background: 'linear-gradient(to top, #FF6B00, rgba(255,107,0,0.3), transparent)',
-                  transform: 'rotateX(-45deg) translateZ(-150px)',
-                  boxShadow: '0 0 20px rgba(255,107,0,0.3)',
-                }}
-              >
-                {/* Glowing Focal Bead */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#FF6B00] rounded-full shadow-[0_0_12px_#FF6B00]" />
+        {/* Bottom Alignment Line */}
+        <div className="flex items-center justify-center mt-12 gap-8 z-10">
+          <div className="h-[1px] w-32 bg-white/10" />
+          <div className="text-[8px] tracking-[0.7em] text-white/40 uppercase font-serif" style={{ fontFamily: "'Cinzel', serif" }}>CHRONICLES</div>
+          <div className="h-[1px] w-32 bg-white/10" />
+        </div>
+      </div>
 
-                {/* Content Node at the top of the line */}
-                <div ref={contentRef} className="absolute bottom-full left-1/2 -translate-x-1/2 mb-6 w-[600px] max-md:w-[85vw] opacity-0">
-                  <div className="flex flex-col items-center space-y-6 relative py-8">
+      {/* ══ LAYER 2: ASYMMETRICAL MULTI-COLUMN TIMELINE ══ */}
+      <div ref={canvasRef} className="absolute inset-0 z-10 overflow-hidden">
+        {/* Softer blueprint layout overlay */}
+        <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
+             style={{ backgroundImage: 'linear-gradient(rgba(255,107,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,0,0.3) 1px, transparent 1px)', backgroundSize: '120px 120px' }} />
 
-                    {/* Corner Accents */}
-                    <div className="absolute top-0 left-0 text-[10px] text-white/20 font-light">+</div>
-                    <div className="absolute top-0 right-0 text-[10px] text-white/20 font-light">+</div>
-                    <div className="absolute bottom-0 left-0 text-[10px] text-white/20 font-light">+</div>
-                    <div className="absolute bottom-0 right-0 text-[10px] text-white/20 font-light">+</div>
+        <div 
+          ref={mapRef} 
+          className="absolute top-[12%] left-[10%] w-max h-max gpu-layer"
+        >
+          {JOURNEY_DATA.map((item, i) => (
+            <div 
+              key={i} 
+              className="absolute top-0 left-0 flex items-center gap-28 w-[90vw] max-w-[1300px]"
+            >
+              {/* Premium Floating Portrait Imagery Display */}
+              <div className="relative w-[32vw] max-w-[440px] aspect-[4/5] shrink-0 z-20">
+                <div className="absolute inset-0 border border-white/5 translate-x-3 translate-y-3 pointer-events-none" />
+                <div className="absolute top-0 left-0 w-full h-full border border-white/5 pointer-events-none" />
+                
+                <div className="w-full h-full overflow-hidden bg-[#111] relative group">
+                  <img 
+                    src={item.image} 
+                    alt={item.title} 
+                    className="w-full h-full object-cover grayscale opacity-75 mix-blend-luminosity group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-700"
+                  />
+                  {/* Subtle, refined inner corner brackets */}
+                  <div className="absolute top-3 left-3 w-3 h-3 border-t border-l border-white/20" />
+                  <div className="absolute bottom-3 right-3 w-3 h-3 border-b border-r border-white/20" />
+                </div>
 
-                    {/* Section Label */}
-                    <div className="absolute -left-12 top-1/2 -rotate-90 origin-center">
-                      <span className="text-[9px] font-mono tracking-[0.5em] text-white/10 uppercase whitespace-nowrap">
-                        EXP_DATA // {item.year.split(' ')[0]}
+                {/* Subtitle number index bracket */}
+                <span className="absolute -left-10 bottom-0 text-[9px] font-medium tracking-widest text-[#FF6B00]/50 font-serif rotate-180" style={{ fontFamily: "'Cinzel', serif", writingMode: 'vertical-rl' }}>
+                  PHASE .0{i + 1}
+                </span>
+              </div>
+
+              {/* Sophisticated Editorial Content Layout */}
+              <div className="relative flex flex-col w-[520px] shrink-0 h-[65vh] justify-center gap-12 select-none">
+                
+                {/* ── TRUE WATERMARK ── */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] pointer-events-none opacity-[0.15] mix-blend-luminosity grayscale z-0">
+                  <img src={item.decor} alt="Timeline Decor" className="w-full h-full object-contain" />
+                </div>
+                
+                {/* ── TOP SECTION ── */}
+                <div className="w-full flex flex-col relative z-20">
+                  <div className="flex items-center gap-4 mb-6">
+                    <span className="text-[9px] tracking-[0.4em] text-[#FF6B00]/80 font-semibold uppercase font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
+                      [ {item.epoch} ]
+                    </span>
+                    <div className="w-[3px] h-[3px] rotate-45 bg-white/20" />
+                    <span className="text-[9px] tracking-[0.25em] text-white/30 font-medium font-serif" style={{ fontFamily: "'Cinzel', serif" }}>
+                      {item.era}
+                    </span>
+                  </div>
+
+                  <h3 className="text-4xl lg:text-[2.75rem] font-medium text-white tracking-[0.2em] uppercase leading-tight" style={{ fontFamily: "'Cinzel', serif" }}>
+                    {item.title}
+                  </h3>
+                  
+                  <div className="w-full h-[1px] greek-axis-line mt-5 opacity-60" />
+                </div>
+
+                {/* ── MIDDLE SECTION ── */}
+                <div className="w-full flex flex-col relative z-20 max-w-[460px]">
+                  <span className="text-[10px] font-semibold tracking-[0.3em] text-[#FF6B00]/70 uppercase mb-4 block" style={{ fontFamily: "'Cinzel', serif" }}>
+                    + {item.decree}
+                  </span>
+                  <p 
+                    className="text-[12px] text-white/55 leading-[2.4] tracking-[0.15em] text-left font-light" 
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    {item.description.charAt(0) + item.description.slice(1).toLowerCase()}
+                  </p>
+                </div>
+
+                {/* ── BOTTOM SECTION ── */}
+                <div className="w-full flex flex-col relative z-20 pt-2">
+                  <div className="w-full h-[1px] bg-white/5 mb-5" />
+                  
+                  <div className="w-full flex gap-20 font-serif text-[8.5px]" style={{ fontFamily: "'Cinzel', serif" }}>
+                    <div className="flex flex-col gap-2">
+                      <span className="text-white/20 uppercase tracking-[0.3em] flex items-center gap-2">
+                        <div className="w-1 h-1 rounded-full bg-white/10" /> ARCHITECTURE SITE
                       </span>
+                      <span className="text-white/60 tracking-[0.2em]">{item.monument}</span>
                     </div>
-
-                    <div className="flex items-center justify-center gap-6">
-                      <div className="h-px w-12 bg-white/10" />
-                      <span
-                        className="text-white/40 text-lg italic"
-                        style={{ fontFamily: "'Cormorant Garamond', serif" }}
-                      >
-                        {item.year}
+                    <div className="flex flex-col gap-2">
+                      <span className="text-white/20 uppercase tracking-[0.3em] flex items-center gap-2">
+                        <div className="w-1 h-1 rounded-full bg-[#FF6B00]/30" /> LOCUS SPECIFICATION
                       </span>
-                      <div className="h-px w-12 bg-white/10" />
-                    </div>
-
-                    <h3
-                      className="text-7xl lg:text-8xl max-md:text-5xl font-normal text-white tracking-tighter uppercase leading-none text-center py-2"
-                      style={{ fontFamily: 'Anton, sans-serif', padding: '0.5rem 0' }}
-                    >
-                      {item.title}
-                    </h3>
-
-                    <div className="relative pt-2">
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                      <p className="text-[13px] font-normal text-white/50 leading-relaxed tracking-[0.05em] uppercase text-center max-w-md pt-6">
-                        {item.description}
-                      </p>
+                      <span className="text-[#FF6B00]/80 tracking-[0.2em]">{item.coordinates}</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Minimal Base Anchor */}
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-px bg-white/60" />
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Deep Ground Shadow */}
-        <div
-          className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-32 bg-black/80 blur-3xl transition-opacity duration-1000 ${isActive ? 'opacity-100' : 'opacity-0'}`}
-          style={{ transform: 'translateY(20px) translateZ(-100px)' }}
-        />
-      </div>
-
-      {/* ── MOBILE ONLY: FLAT LIST ITEM ── */}
-      <div className="hidden max-md:flex w-full h-full flex-col items-center justify-center relative overflow-hidden px-6 py-16">
-        
-        {/* Dimmed Background Photo */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.35]">
-          <img src={item.image} alt={item.title} className="w-full h-full object-cover grayscale" />
-        </div>
-
-        {/* 100% Opaque Gradient Overlays for Seamless Merging */}
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-[#1a1a1a] via-transparent to-[#1a1a1a]" />
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)]" />
-
-        {/* Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-full">
-          
-          <div className="flex items-center justify-center gap-4">
-            <div className="h-px w-8 bg-gradient-to-r from-transparent to-[#FF6B00]" />
-            <span
-              className="text-white/70 text-xl italic leading-none"
-              style={{ fontFamily: "'Cormorant Garamond', serif" }}
-            >
-              {item.year}
-            </span>
-            <div className="h-px w-8 bg-gradient-to-l from-transparent to-[#FF6B00]" />
-          </div>
-
-          <div style={{ height: '24px', width: '100%' }} />
-
-          <h3
-            className="text-[3rem] font-normal tracking-tighter uppercase leading-[0.9] text-transparent bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/30 drop-shadow-2xl"
-            style={{ fontFamily: 'Anton, sans-serif' }}
-          >
-            {item.title}
-          </h3>
-
-          <div style={{ height: '24px', width: '100%' }} />
-
-          <p 
-            className="text-[15px] font-medium text-white/60 leading-[1.35] max-w-[320px] uppercase tracking-widest"
-            style={{ fontFamily: "'Saira Extra Condensed', sans-serif" }}
-          >
-            {item.description}
-          </p>
+          ))}
         </div>
       </div>
 
-      {/* Parallax Background Year */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-normal text-white/[0.012] pointer-events-none select-none uppercase z-[-1] max-md:hidden"
-        style={{ fontFamily: 'Anton, sans-serif' }}
-      >
-        {item.yearShort || item.year.split(' ')[0]}
-      </div>
-    </div>
-  );
-};
-
-export default function Journey() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const horizontalRef = useRef<HTMLDivElement>(null);
-  const progressLineRef = useRef<HTMLDivElement>(null);
-  const [activeIndices, setActiveIndices] = useState<number[]>([]);
-  const activeIndicesRef = useRef<number[]>([]);
-
-  useEffect(() => {
-    let mm = gsap.matchMedia();
-    const ctx = gsap.context(() => {
-      mm.add("(min-width: 768px)", () => {
-        const horizontal = horizontalRef.current;
-        const section = sectionRef.current;
-        const progressLine = progressLineRef.current;
-        if (!horizontal || !section) return;
-
-        const totalWidth = horizontal.scrollWidth;
-        const windowWidth = window.innerWidth;
-        // The right timeline panel is 58% of the screen width. Mapped scroll should account for the visible width (58vw) rather than full windowWidth (100vw).
-        const visibleWidth = windowWidth * 0.58;
-        const amountToScroll = totalWidth - visibleWidth;
-        const scrollBuffer = 300; // Extra scroll pixels for viewing the last item
-
-        ScrollTrigger.create({
-          trigger: section,
-          pin: true,
-          start: "top top",
-          end: () => `+=${totalWidth + scrollBuffer}`,
-          scrub: 1.2,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            const progress = self.progress;
-            const activeScrollRatio = totalWidth / (totalWidth + scrollBuffer);
-            const activeProgress = Math.min(progress / activeScrollRatio, 1);
-
-            gsap.set(horizontal, { x: -activeProgress * amountToScroll });
-            if (progressLine) {
-              gsap.set(progressLine, { scaleX: progress });
-            }
-
-            const newActive: number[] = [];
-            const leftBoundary = windowWidth * 0.42; // Left panel covers 42vw
-            const rightBoundary = windowWidth;
-
-            if (horizontal.children) {
-              Array.from(horizontal.children).forEach((child, i) => {
-                 const rect = child.getBoundingClientRect();
-                 // Element is visible if its left edge entered the screen and right edge hasn't passed the left panel
-                 if (rect.left < rightBoundary && rect.right > leftBoundary) {
-                    newActive.push(i);
-                 }
-              });
-            }
-
-            if (JSON.stringify(newActive) !== JSON.stringify(activeIndicesRef.current)) {
-               activeIndicesRef.current = newActive;
-               setActiveIndices(newActive);
-            }
-          }
-        });
-      });
-    }, sectionRef);
-
-    return () => {
-      ctx.revert();
-      mm.revert();
-    };
-  }, []);
-
-  return (
-    <section
-      ref={sectionRef}
-      id="journey"
-      className="relative w-full h-screen bg-[#111] overflow-hidden select-none max-md:!h-auto max-md:!overflow-visible max-md:!bg-[#1a1a1a]"
-    >
-      <div className="flex h-full w-full relative z-10 max-md:flex-col">
-
-        {/* ══ LEFT: EDITORIAL COVER ══ */}
-        <div
-          className="w-[42%] h-full flex flex-col justify-center relative bg-[#111] z-20 shadow-[80px_0_150px_rgba(0,0,0,0.9)] max-md:w-full max-md:h-[50vh] max-md:min-h-[400px] max-md:!bg-[#1a1a1a]"
-          style={{ paddingLeft: '5vw', paddingRight: '7vw' }}
-        >
-
-
-          <div className="relative z-10">
-            <div className="flex flex-col mb-20">
-              <div className="flex flex-col items-start">
-                <span
-                  className="text-[6vw] font-light leading-none tracking-tight text-white italic -mb-6 max-md:text-4xl"
-                  style={{ fontFamily: "'Cormorant Garamond', serif" }}
-                >
-                  The
-                </span>
-                <h2
-                  className="text-[9vw] font-normal leading-[0.8] tracking-tighter text-white uppercase max-md:text-6xl"
-                  style={{ fontFamily: 'Anton, sans-serif' }}
-                >
-                  JOURNEY
-                </h2>
-              </div>
-            </div>
-
-            <div className="flex gap-12 items-start mt-[100px] relative top-8">
-              <div className="w-px h-24 bg-white/10 pt-4 ml-6" />
-              <p
-                className="text-[18px] text-white/40 leading-relaxed max-w-[280px] italic"
-                style={{ fontFamily: "'Cormorant Garamond', serif" }}
-              >
-                “Mapping the evolution of logic, from the first line of code to the complex neural architectures of tomorrow.”
-              </p>
-            </div>
-          </div>
-
-          {/* Editorial Folio: Bottom Section */}
-          <div className="absolute bottom-16 left-0 w-full px-[8vw] flex flex-col gap-16">
-            <div className="w-full h-px bg-white/5" />
-            <div className="flex justify-between items-end relative">
-
-              <div className="absolute right-[1vw] bottom-0 translate-y-12">
-                <span className="text-8xl font-normal text-white/[0.03] leading-none select-none" style={{ fontFamily: 'Anton, sans-serif' }}>
-                  {String((activeIndices[0] || 0) + 1).padStart(2, '0')}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Background Atmospheric Glow */}
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full h-1/2 bg-white/[0.01] blur-[120px] pointer-events-none" />
+      {/* ══ MOBILE FALLBACK ══ */}
+      <div className="hidden max-md:flex flex-col w-full bg-[#0a0a0a] py-20 px-6 space-y-16">
+        <div className="text-center mb-6 relative">
+          <h2 className="text-4xl font-bold tracking-[0.2em] text-[#FF6B00] uppercase" style={{ fontFamily: "'Cinzel', serif" }}>The Journey</h2>
+          <div className="w-16 h-[1px] bg-[#FF6B00]/30 mx-auto mt-4" />
         </div>
-
-        {/* ══ RIGHT: HORIZONTAL TIMELINE STREAM (STACKED ON MOBILE) ══ */}
-        <div className="w-[58%] h-full overflow-hidden relative bg-[#1a1a1a] max-md:!w-full max-md:!h-auto max-md:!overflow-visible">
-
-          {/* Static High-Performance Dot Background */}
-          <div
-            className="absolute inset-0 opacity-20 pointer-events-none"
-            style={{
-              backgroundImage: 'radial-gradient(rgba(255, 107, 0, 0.2) 2px, transparent 2px)',
-              backgroundSize: '16px 16px'
-            }}
-          />
-
-          {/* Main Timeline Axis: The "Data Bus" */}
-          <div className="absolute top-1/2 left-0 w-full h-[2px] bg-white/5 z-0 overflow-hidden max-md:hidden">
-            {/* Base Pulse */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FF6B00]/10 to-transparent w-1/3 animate-data-pulse" />
-
-            {/* Scroll Progress Indicator */}
-            <div
-              ref={progressLineRef}
-              className="absolute inset-y-0 left-0 bg-gradient-to-r from-transparent to-[#FF6B00] origin-left shadow-[0_0_15px_#FF6B00]"
-              style={{ width: '100%', transform: 'scaleX(0)' }}
-            >
-              {/* Glowing Tip */}
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#FF6B00] rounded-full blur-[2px] shadow-[0_0_20px_#FF6B00]" />
+        {JOURNEY_DATA.map((item, i) => (
+          <div key={i} className="w-full flex flex-col gap-4 border-b border-white/5 pb-10 relative">
+            <img src={item.image} alt={item.title} className="w-full h-[35vh] object-cover grayscale opacity-70 border border-white/5 p-1" />
+            <div className="flex flex-col gap-1 mt-2">
+              <span className="text-[9px] tracking-[0.2em] text-[#FF6B00]/80 uppercase">[ {item.epoch} ]</span>
+              <h3 className="text-3xl text-white uppercase tracking-wider mt-1" style={{ fontFamily: "'Cinzel', serif" }}>{item.title}</h3>
+              <span className="text-[10px] tracking-[0.2em] text-[#FF6B00]/60 uppercase font-serif my-2">+ {item.decree}</span>
+              <p className="text-xs text-white/50 tracking-wide leading-relaxed mt-1">{item.description}</p>
             </div>
           </div>
-
-          <div
-            ref={horizontalRef}
-            className="flex h-full items-center px-[10vw] relative z-10 max-md:flex-col max-md:!w-full max-md:!px-0 max-md:!h-auto"
-            style={{ width: 'max-content' }}
-          >
-            {JOURNEY_DATA.map((item, i) => (
-              <JourneyMilestone key={i} item={item} i={i} activeIndices={activeIndices} />
-            ))}
-
-          </div>
-        </div>
+        ))}
       </div>
-
-      {/* Global Physics Keyframes */}
-      <style>{`
-        @keyframes data-pulse {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(300%); }
-        }
-        .animate-data-pulse {
-          animation: data-pulse 8s linear infinite;
-        }
-      `}</style>
-
-      {/* Decorative Lines */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-white/5 z-20" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-white/5 z-20" />
     </section>
   );
 }
