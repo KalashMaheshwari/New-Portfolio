@@ -251,7 +251,7 @@ export default function Journey() {
                   <img 
                     src={item.image} 
                     alt={item.title} 
-                    className="w-full h-full object-cover grayscale opacity-75 mix-blend-luminosity group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-700"
+                    className="w-full h-full object-cover group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-700"
                   />
                   {/* Subtle, refined inner corner brackets */}
                   <div className="absolute top-3 left-3 w-3 h-3 border-t border-l border-white/20" />

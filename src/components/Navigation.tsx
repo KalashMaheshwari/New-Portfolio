@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { name: 'Works', href: '#playground', sectionId: 'playground' },
   { name: 'Skills', href: '#skills', sectionId: 'skills' },
   { name: 'Approach', href: '#manifesto', sectionId: 'manifesto' },
+  { name: 'Certificates', href: '#certificates', sectionId: 'certificates' },
   { name: 'Book a call', href: '#cta', sectionId: 'cta' }
 ];
 
@@ -111,7 +112,7 @@ export default function Navigation() {
 
     const targetWidth = Math.min(335, window.innerWidth - 32);
     await animate(scope.current, { width: targetWidth, height: 56 }, { duration: 0.3, ease: PREMIUM_EASE });
-    await animate(scope.current, { height: 422 }, { duration: 0.3, ease: PREMIUM_EASE });
+    await animate(scope.current, { height: 460 }, { duration: 0.3, ease: PREMIUM_EASE });
 
     setShowContent(true);
   }, [isOpen, animate, scope]);
@@ -212,7 +213,7 @@ export default function Navigation() {
                 fontFamily: "var(--font-neue)",
                 padding: "42px 20px 32px 20px",
                 width: '100%',
-                height: 422
+                height: 460
               }}
               variants={containerVariants}
               initial="hidden"

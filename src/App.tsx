@@ -16,6 +16,7 @@ import Footer from './components/Footer';
 import Preloader from './components/Preloader';
 import CursorNucleus from './components/ui/CursorNucleus';
 import Journey from './components/Journey';
+import Certificates from './components/Certificates';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -210,6 +211,10 @@ export default function App() {
 
           <section id="journey-section">
             <Journey />
+          </section>
+
+          <section id="certificates-section">
+            <Certificates />
           </section>
 
           <section id="cta-section">

@@ -16,6 +16,7 @@ interface TextPressureProps {
   strokeWidth?: number;
   className?: string;
   minFontSize?: number;
+  style?: React.CSSProperties;
 }
 
 const dist = (a: { x: number; y: number }, b: { x: number; y: number }) => {
@@ -54,7 +55,8 @@ const TextPressure: React.FC<TextPressureProps> = ({
   strokeColor = '#FF0000',
   strokeWidth = 2,
   className = '',
-  minFontSize = 24
+  minFontSize = 24,
+  style
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
@@ -220,7 +222,8 @@ const TextPressure: React.FC<TextPressureProps> = ({
           transformOrigin: 'center top',
           margin: 0,
           fontWeight: 100,
-          color: stroke ? undefined : textColor
+          color: stroke ? undefined : textColor,
+          ...style
         }}
       >
         {chars.map((char, i) => (

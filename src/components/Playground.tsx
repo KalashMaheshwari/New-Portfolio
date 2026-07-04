@@ -23,6 +23,25 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
+    id: 6,
+    title: "Mumma's Cake by Mahek",
+    subtitle: 'Premium Bakery & AI-Assisted Ordering',
+    description: 'A bespoke bakery web application featuring smooth kinetic scrolling, elegant motion design, and an integrated AI assistant for personalized cake recommendations and ordering.',
+    category: 'E-Commerce / Hospitality',
+    year: '2024',
+    role: 'Full Stack Engineer',
+    tags: ['React', 'Vite', 'Tailwind CSS v4', 'Framer Motion', 'Lenis', 'Google GenAI'],
+    link: 'https://github.com/KalashMaheshwari/mamas-cakes-by-mahek',
+    github: 'https://github.com/KalashMaheshwari/mamas-cakes-by-mahek',
+    image: '/images/Mummascakesbymahek/hero.png',
+    gallery: ['/images/Mummascakesbymahek/1.jpg', '/images/Mummascakesbymahek/3.jpg'],
+    highlights: [
+      "Engineered an integrated AI Studio assistant for dynamic customer interactions.",
+      "Implemented Lenis for fluid, kinetic scrolling experiences.",
+      "Architected a modern frontend using Vite and Tailwind CSS v4."
+    ]
+  },
+  {
     id: 1,
     title: 'BM Advertisers',
     subtitle: 'Elite Digital Experience & Interactive Publishing Engine',
@@ -447,12 +466,15 @@ export default function Playground() {
                       onClick={() => open(project.id)}
                     >
                       {/* Raw Image - Full Bleed, No Padding, No Rounded Corners */}
-                      <img 
-                        src={project.image} 
-                        alt={project.title} 
-                        loading={i < 2 ? 'eager' : 'lazy'} 
-                        className="w-full h-auto block transition-all duration-700 ease-out grayscale-[0.7] brightness-90 group-hover:grayscale-0 group-hover:brightness-110 group-hover:scale-105 rounded-none" 
-                      />
+                      <picture className="contents">
+                        <source srcSet={project.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                        <img 
+                          src={project.image} 
+                          alt={project.title} 
+                          loading={i < 2 ? 'eager' : 'lazy'} 
+                          className="w-full h-auto block transition-all duration-700 ease-out grayscale-[0.7] brightness-90 group-hover:grayscale-0 group-hover:brightness-110 group-hover:scale-105 rounded-none" 
+                        />
+                      </picture>
                     </WobbleCard>
                   </div>
                 </div>

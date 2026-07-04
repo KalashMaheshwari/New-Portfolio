@@ -243,13 +243,16 @@ export default function ProjectDetail({
                     className="flex-shrink-0 overflow-hidden"
                     style={{ width: '44px', height: '32px', borderRadius: '0' }}
                   >
-                    <img
-                      src={p.image}
-                      alt=""
-                      loading="lazy"
-                      className="w-full h-full object-cover"
-                      style={{ filter: active ? 'brightness(0.8)' : 'brightness(0.4)' }}
-                    />
+                    <picture className="contents">
+                      <source srcSet={p.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                      <img
+                        src={p.image}
+                        alt=""
+                        loading="lazy"
+                        className="w-full h-full object-cover"
+                        style={{ filter: active ? 'brightness(0.8)' : 'brightness(0.4)' }}
+                      />
+                    </picture>
                   </div>
                   <div className="min-w-0 flex-1">
                     <p
@@ -318,12 +321,15 @@ export default function ProjectDetail({
                 boxShadow: '0 30px 80px rgba(0,0,0,0.5)',
               }}
             >
-              <img
-                src={selected.image}
-                alt={selected.title}
-                loading="lazy"
-                className="w-full h-auto block transition-all duration-500 filter grayscale-[25%] hover:grayscale-0 hover:brightness-110 hover:contrast-115 hover:saturate-125"
-              />
+              <picture className="contents">
+                <source srcSet={selected.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                <img
+                  src={selected.image}
+                  alt={selected.title}
+                  loading="lazy"
+                  className="w-full h-auto block transition-all duration-500 filter grayscale-[25%] hover:grayscale-0 hover:brightness-110 hover:contrast-115 hover:saturate-125"
+                />
+              </picture>
               <div
                 className="absolute inset-0"
                 style={{
@@ -591,13 +597,16 @@ export default function ProjectDetail({
                   }}
                   onClick={() => setLightboxUrl(selected.gallery[0])}
                 >
-                  <img
-                    src={selected.gallery[0]}
-                    alt={`${selected.title} Feature`}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
-                    style={{ filter: 'brightness(0.85)' }}
-                  />
+                  <picture className="contents">
+                    <source srcSet={selected.gallery[0].replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                    <img
+                      src={selected.gallery[0]}
+                      alt={`${selected.title} Feature`}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
+                      style={{ filter: 'brightness(0.85)' }}
+                    />
+                  </picture>
                   <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
                 </div>
 
@@ -610,13 +619,16 @@ export default function ProjectDetail({
                   }}
                   onClick={() => setLightboxUrl(selected.gallery[1])}
                 >
-                  <img
-                    src={selected.gallery[1]}
-                    alt={`${selected.title} Detail 1`}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
-                    style={{ filter: 'brightness(0.85)' }}
-                  />
+                  <picture className="contents">
+                    <source srcSet={selected.gallery[1].replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                    <img
+                      src={selected.gallery[1]}
+                      alt={`${selected.title} Detail 1`}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
+                      style={{ filter: 'brightness(0.85)' }}
+                    />
+                  </picture>
                   <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
                 </div>
 
@@ -629,13 +641,16 @@ export default function ProjectDetail({
                   }}
                   onClick={() => setLightboxUrl(selected.gallery[2])}
                 >
-                  <img
-                    src={selected.gallery[2]}
-                    alt={`${selected.title} Detail 2`}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
-                    style={{ filter: 'brightness(0.85)' }}
-                  />
+                  <picture className="contents">
+                    <source srcSet={selected.gallery[2].replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                    <img
+                      src={selected.gallery[2]}
+                      alt={`${selected.title} Detail 2`}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
+                      style={{ filter: 'brightness(0.85)' }}
+                    />
+                  </picture>
                   <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
                 </div>
               </div>
@@ -658,11 +673,14 @@ export default function ProjectDetail({
           onClick={() => setLightboxUrl(null)}
         >
           <div className="relative max-w-[90vw] max-h-[90vh] overflow-hidden rounded-none shadow-2xl">
-            <img
-              src={lightboxUrl}
-              alt="Enlarged preview"
-              className="w-full h-full object-contain max-h-[90vh]"
-            />
+            <picture className="contents">
+              <source srcSet={lightboxUrl.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+              <img
+                src={lightboxUrl}
+                alt="Enlarged preview"
+                className="w-full h-full object-contain max-h-[90vh]"
+              />
+            </picture>
             
             {/* Close Lightbox Button */}
             <button

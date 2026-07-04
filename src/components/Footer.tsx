@@ -44,7 +44,7 @@ export default function Footer() {
         entries.forEach((entry) => {
           const video = entry.target as HTMLVideoElement;
           if (entry.isIntersecting) {
-            video.play().catch(() => {});
+            video.play().catch(() => { });
           } else {
             video.pause();
           }
@@ -163,12 +163,15 @@ export default function Footer() {
                 style={{ fontFamily: "'Saira Extra Condensed', sans-serif", fontSize: 'clamp(60px, 8vw, 100px)', lineHeight: 0.9, fontWeight: 800, color: '#ffffff' }}>
 
                 <div ref={imageWrapRef} className="relative aspect-[4/3] h-[0.8em] rounded-md md:rounded-lg overflow-hidden shrink-0 bg-white/5">
-                  <img
-                    src="/images/meet.webp"
-                    alt="Team desk workspace"
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
+                  <picture className="contents">
+                    <source srcSet="/images/meet.avif" type="image/avif" />
+                    <img
+                      src="/images/meet.webp"
+                      alt="Team desk workspace"
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  </picture>
                 </div>
 
                 <div ref={togetherRef} className="inline-block">
@@ -295,13 +298,15 @@ export default function Footer() {
         className="relative flex flex-col w-[85vw] mx-auto"
       >
         <div
-          className="relative flex items-center justify-center w-full overflow-hidden min-h-[200px] md:min-h-[400px] h-[45vh]"
+          className="relative flex items-center justify-center w-full overflow-visible min-h-[200px] md:min-h-[400px] h-[45vh]"
         >
           <div
             ref={signatureTextRef}
-            className="w-full h-full pointer-events-auto max-md:hidden"
+            className="w-[105%] h-full pointer-events-auto max-md:hidden overflow-visible"
             style={{ transformOrigin: 'top center', willChange: 'transform' }}
           >
+            {/* The TextPressure component dynamically stretches to fit width and height, 
+                so it inherits parent font parameters cleanly */}
             <TextPressure
               text="KALASH!"
               flex={true}
@@ -310,12 +315,19 @@ export default function Footer() {
               width={true}
               weight={true}
               italic={false}
-              textColor="#FFFFFF"
+              textColor="transparent"
               scale={true}
+              // Force override the internal canvas calculation to use your premium font stack
+              className=""
+              style={{ fontFamily: "'Saira Extra Condensed', sans-serif", fontWeight: 900, backgroundImage: "url('/images/textfill.avif')", backgroundSize: "cover", backgroundPosition: "center", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", WebkitTextStroke: "2px rgba(255, 255, 255, 0.5)" }}
             />
           </div>
+
+          {/* MOBILE FALLBACK: Image clipped text with outline aesthetic */}
           <div className="hidden max-md:flex w-full h-full items-center justify-center pointer-events-auto">
-            <span style={{ fontFamily: 'Anton, sans-serif', fontSize: '20vw', color: 'white', lineHeight: 1 }}>KALASH!</span>
+            <span style={{ fontFamily: "'Saira Extra Condensed', sans-serif", fontWeight: 900, fontSize: '22vw', backgroundImage: "url('/images/textfill.avif')", backgroundSize: "cover", backgroundPosition: "center", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", color: "transparent", WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)', lineHeight: 1, letterSpacing: '0.02em' }}>
+              KALASH!
+            </span>
           </div>
         </div>
 

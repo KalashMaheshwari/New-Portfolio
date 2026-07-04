@@ -168,8 +168,8 @@ export default function CTA() {
           className="cta-bg-video absolute top-[-10%] left-0 w-full h-[120%] object-cover opacity-60"
           style={{ filter: 'brightness(0.7) contrast(1.6) saturate(1.5)' }}
         >
-          <source src="/videos/CTA-720.webm" type="video/webm" />
-          <source src="/videos/CTA-720.mp4" type="video/mp4" />
+          <source src="/videos/connect.webm" type="video/webm" />
+          <source src="/videos/connect.mp4" type="video/mp4" />
         </video>
         {/* Soft vignette to blend edges */}
         <div
