@@ -62,10 +62,17 @@ export default function App() {
     };
     document.addEventListener('visibilitychange', handleVisibility);
 
+    // ── Handle layout shifts (e.g. lazy loaded images) ────────────
+    const resizeObserver = new ResizeObserver(() => {
+      ScrollTrigger.refresh();
+    });
+    resizeObserver.observe(document.body);
+
     setTimeout(() => ScrollTrigger.refresh(), 100);
 
     return () => {
       document.removeEventListener('visibilitychange', handleVisibility);
+      resizeObserver.disconnect();
       gsap.ticker.remove(rafCallback);
       lenis.destroy();
       ScrollTrigger.getAll().forEach((t) => t.kill());

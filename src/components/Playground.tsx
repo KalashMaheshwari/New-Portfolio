@@ -461,7 +461,9 @@ export default function Playground() {
                     >
                       {/* Raw Image - Full Bleed, No Padding, No Rounded Corners */}
                       <picture className="contents">
-                        <source srcSet={project.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                        {!project.image.endsWith('.webp') && (
+                          <source srcSet={project.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                        )}
                         <img 
                           src={project.image} 
                           alt={project.title} 

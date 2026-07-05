@@ -20,7 +20,7 @@ const CERTIFICATES: Certificate[] = [
     issuer: 'Brainy Insights',
     date: 'MMXXIV',
     link: '#',
-    image: '/images/Certificates/BI_Internship.jpg',
+    image: '/images/Certificates/BI_Internship.webp',
   },
   {
     id: 'II',
@@ -28,7 +28,7 @@ const CERTIFICATES: Certificate[] = [
     issuer: 'Houston International Foods',
     date: 'MMXXIV',
     link: '#',
-    image: '/images/Certificates/HIF_LOR.jpg',
+    image: '/images/Certificates/HIF_LOR.webp',
   },
   {
     id: 'III',
@@ -36,7 +36,7 @@ const CERTIFICATES: Certificate[] = [
     issuer: 'MAIT',
     date: 'MMXXIV',
     link: '#',
-    image: '/images/Certificates/HackwithMAIT6.0.jpg',
+    image: '/images/Certificates/HackwithMAIT6.0.webp',
   },
 ];
 
@@ -326,7 +326,9 @@ export default function Certificates() {
               >
                 {/* Image Container - Size Free, No Info Overlays */}
                 <picture className="contents">
-                  <source srcSet={cert.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                  {!cert.image.endsWith('.webp') && (
+                    <source srcSet={cert.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                  )}
                   <img
                     src={cert.image}
                     alt={cert.title}
@@ -362,7 +364,9 @@ export default function Certificates() {
               >
                 {/* Image Container - Size Free, No Info Overlays */}
                 <picture className="contents">
-                  <source srcSet={cert.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                  {!cert.image.endsWith('.webp') && (
+                    <source srcSet={cert.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                  )}
                   <img
                     src={cert.image}
                     alt={cert.title}
@@ -435,7 +439,9 @@ export default function Certificates() {
               {/* Actual Image */}
               <div className="relative z-10 max-h-[65vh] w-full flex justify-center items-center">
                 <picture className="contents">
-                  <source srcSet={selectedCert.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                  {!selectedCert.image.endsWith('.webp') && (
+                    <source srcSet={selectedCert.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                  )}
                   <img
                     src={selectedCert.image}
                     alt={selectedCert.title}

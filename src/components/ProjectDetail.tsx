@@ -244,7 +244,9 @@ export default function ProjectDetail({
                     style={{ width: '44px', height: '32px', borderRadius: '0' }}
                   >
                     <picture className="contents">
-                      <source srcSet={p.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                      {!p.image.endsWith('.webp') && (
+                        <source srcSet={p.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                      )}
                       <img
                         src={p.image}
                         alt=""
@@ -322,7 +324,9 @@ export default function ProjectDetail({
               }}
             >
               <picture className="contents">
-                <source srcSet={selected.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                {!selected.image.endsWith('.webp') && (
+                  <source srcSet={selected.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                )}
                 <img
                   src={selected.image}
                   alt={selected.title}
@@ -598,7 +602,9 @@ export default function ProjectDetail({
                   onClick={() => setLightboxUrl(selected.gallery[0])}
                 >
                   <picture className="contents">
-                    <source srcSet={selected.gallery[0].replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                    {!selected.gallery[0].endsWith('.webp') && (
+                      <source srcSet={selected.gallery[0].replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                    )}
                     <img
                       src={selected.gallery[0]}
                       alt={`${selected.title} Feature`}
@@ -620,7 +626,9 @@ export default function ProjectDetail({
                   onClick={() => setLightboxUrl(selected.gallery[1])}
                 >
                   <picture className="contents">
-                    <source srcSet={selected.gallery[1].replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                    {!selected.gallery[1].endsWith('.webp') && (
+                      <source srcSet={selected.gallery[1].replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                    )}
                     <img
                       src={selected.gallery[1]}
                       alt={`${selected.title} Detail 1`}
@@ -642,7 +650,9 @@ export default function ProjectDetail({
                   onClick={() => setLightboxUrl(selected.gallery[2])}
                 >
                   <picture className="contents">
-                    <source srcSet={selected.gallery[2].replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                    {!selected.gallery[2].endsWith('.webp') && (
+                      <source srcSet={selected.gallery[2].replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                    )}
                     <img
                       src={selected.gallery[2]}
                       alt={`${selected.title} Detail 2`}
@@ -674,7 +684,9 @@ export default function ProjectDetail({
         >
           <div className="relative max-w-[90vw] max-h-[90vh] overflow-hidden rounded-none shadow-2xl">
             <picture className="contents">
-              <source srcSet={lightboxUrl.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+              {!lightboxUrl.endsWith('.webp') && (
+                <source srcSet={lightboxUrl.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+              )}
               <img
                 src={lightboxUrl}
                 alt="Enlarged preview"
