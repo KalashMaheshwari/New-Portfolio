@@ -33,8 +33,12 @@ const PROJECTS: Project[] = [
     tags: ['React', 'Vite', 'Tailwind CSS v4', 'Framer Motion', 'Lenis', 'Google GenAI'],
     link: 'https://github.com/KalashMaheshwari/mamas-cakes-by-mahek',
     github: 'https://github.com/KalashMaheshwari/mamas-cakes-by-mahek',
-    image: '/images/Mummascakesbymahek/hero.png',
-    gallery: ['/images/Mummascakesbymahek/1.jpg', '/images/Mummascakesbymahek/3.jpg'],
+    image: '/images/Mummascakesbymahek/hero.avif',
+    gallery: [
+      '/images/Mummascakesbymahek/1.avif', 
+      '/images/Mummascakesbymahek/2.avif', 
+      '/images/Mummascakesbymahek/3.avif'
+    ],
     highlights: [
       "Engineered an integrated AI Studio assistant for dynamic customer interactions.",
       "Implemented Lenis for fluid, kinetic scrolling experiences.",

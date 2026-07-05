@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -11,6 +12,7 @@ interface Certificate {
   date: string;
   link: string;
   image: string;
+  learnings: string;
 }
 
 const CERTIFICATES: Certificate[] = [
@@ -18,25 +20,28 @@ const CERTIFICATES: Certificate[] = [
     id: 'I',
     title: 'BI Internship',
     issuer: 'Brainy Insights',
-    date: 'MMXXIV',
+    date: '2024',
     link: '#',
     image: '/images/Certificates/BI_Internship.webp',
+    learnings: 'Gained hands-on experience in business intelligence, mastering advanced data visualization, SQL queries, and translating complex datasets into actionable insights.',
   },
   {
     id: 'II',
     title: 'Letter of Recommendation',
     issuer: 'Houston International Foods',
-    date: 'MMXXIV',
+    date: '2024',
     link: '#',
     image: '/images/Certificates/HIF_LOR.webp',
+    learnings: 'Recognized for exceptional performance, cross-functional teamwork, and a strong commitment to delivering high-quality project outcomes under pressure.',
   },
   {
     id: 'III',
     title: 'HackwithMAIT 6.0',
     issuer: 'MAIT',
-    date: 'MMXXIV',
+    date: '2024',
     link: '#',
     image: '/images/Certificates/HackwithMAIT6.0.webp',
+    learnings: 'Developed and deployed a full-stack solution under strict time constraints, focusing on innovative problem-solving, rapid prototyping, and team collaboration.',
   },
 ];
 
@@ -122,11 +127,11 @@ export default function Certificates() {
         </picture>
       </div>
 
-      {/* MV1 Monaco Helmet - Left side, certificates region */}
+      {/* MV1 Monaco Helmet - Left side */}
       <div
         className="absolute pointer-events-none opacity-[0.1] mix-blend-lighten z-0"
         style={{
-          top: '50%',
+          top: '55%',
           left: '-4%',
           width: '38vh',
           height: '38vh',
@@ -139,12 +144,12 @@ export default function Certificates() {
         </picture>
       </div>
 
-      {/* RB21 Car - Right side, lower certificates region */}
+      {/* RB21 Car - Left side */}
       <div
         className="absolute pointer-events-none opacity-[0.08] mix-blend-lighten z-0"
         style={{
-          top: '75%',
-          right: '-5%',
+          top: '25%',
+          left: '-5%',
           width: '48vh',
           height: '48vh',
           transform: 'rotate(8deg)',
@@ -156,11 +161,11 @@ export default function Certificates() {
         </picture>
       </div>
 
-      {/* Hamilton Helmet - Right side, certificates region */}
+      {/* Hamilton Helmet - Right side */}
       <div
         className="absolute pointer-events-none opacity-[0.1] mix-blend-lighten z-0"
         style={{
-          top: '60%',
+          top: '35%',
           right: '-2%',
           width: '35vh',
           height: '35vh',
@@ -173,7 +178,7 @@ export default function Certificates() {
         </picture>
       </div>
 
-      {/* Verstappen Silhouette - Left side, lower certificates region (smaller, not cut off) */}
+      {/* Verstappen Silhouette - Left side */}
       <div
         className="absolute pointer-events-none opacity-[0.08] mix-blend-lighten z-0"
         style={{
@@ -190,15 +195,15 @@ export default function Certificates() {
         </picture>
       </div>
 
-      {/* Hamilton Silhouette - Left side, certificates region (smaller, not cut off) */}
+      {/* Hamilton Silhouette - Right side */}
       <div
         className="absolute pointer-events-none opacity-[0.08] mix-blend-lighten z-0"
         style={{
-          top: '65%',
-          left: '-4%',
+          top: '75%',
+          right: '-4%',
           width: '25vh',
           height: '25vh',
-          transform: 'rotate(-12deg)',
+          transform: 'rotate(12deg)',
         }}
       >
         <picture className="contents">
@@ -395,149 +400,168 @@ export default function Certificates() {
         </div>
       </div>
 
-      {/* ════════════════════ CERTIFICATE MODAL ════════════════════ */}
-      {selectedCert && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 lg:p-12 perspective-1000">
-          {/* Backdrop with heavy blur and noise */}
+{/* ════════════════════ CERTIFICATE MODAL ════════════════════ */}
+{selectedCert && typeof document !== 'undefined' && createPortal(
+  <>
+    <style>{`
+      @keyframes modalEntrance {
+        from { opacity: 0; transform: scale(0.97) translateY(10px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+      }
+      .modal-entrance { animation: modalEntrance 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+      
+      /* Hover shine sweep for the button */
+      .btn-shine {
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-shine::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -100%;
+        width: 50%;
+        height: 200%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+        transform: skewX(-25deg);
+        transition: left 0.6s ease-in-out;
+      }
+      .btn-shine:hover::after {
+        left: 150%;
+      }
+    `}</style>
+
+    <div
+      className="fixed inset-0 z-[100000] flex items-center justify-center p-4 sm:p-6 md:p-10 text-white"
+      style={{ fontFamily: 'var(--font-body)' }}
+    >
+      {/* ── Ambient Backdrop ── */}
+      <div
+        className="absolute inset-0 bg-black/85 backdrop-blur-2xl"
+        onClick={() => setSelectedCert(null)}
+        style={{ cursor: 'pointer' }}
+      />
+      
+      {/* Ambient light bleed from modal */}
+      <div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full opacity-[0.07] pointer-events-none blur-3xl"
+        style={{ background: 'radial-gradient(circle, var(--accent), transparent 70%)' }}
+      />
+
+      {/* ══════════ The Document Card ══════════ */}
+      <div
+        className="modal-entrance relative z-10 flex flex-col lg:flex-row overflow-hidden max-w-[1100px] w-full max-h-[90vh] rounded-2xl"
+        style={{
+          background: 'linear-gradient(165deg, #111111 0%, #080808 100%)',
+          boxShadow: `
+            0 80px 160px -40px rgba(0,0,0,0.95),
+            0 0 0 1px rgba(255,255,255,0.04),
+            inset 0 1px 0 rgba(255,255,255,0.06)
+          `,
+        }}
+      >
+        {/* ──── Full Bleed Image (LEFT) ──── */}
+        <div className="relative w-full lg:w-[58%] h-[40vh] lg:h-auto shrink-0 flex items-center justify-center bg-[#000] overflow-hidden border-b lg:border-b-0 lg:border-r border-white/10">
+          <picture className="flex items-center justify-center w-full h-full p-4 md:p-8">
+            {!selectedCert.image.endsWith('.webp') && (
+              <source
+                srcSet={selectedCert.image.replace(/\.(jpg|png|webp)$/, '.avif')}
+                type="image/avif"
+              />
+            )}
+            <img
+              src={selectedCert.image}
+              alt={selectedCert.title}
+              className="max-w-full max-h-full object-contain"
+              style={{ filter: 'drop-shadow(0 15px 40px rgba(0,0,0,0.7))' }}
+            />
+          </picture>
+        </div>
+
+        {/* ──── The Placard (Content Right) ──── */}
+        <div
+          className="relative w-full lg:w-[42%] flex flex-col justify-center overflow-y-auto"
+          style={{ padding: '4rem 3rem' }}
+        >
+          {/* Subtle physical texture overlay */}
           <div
-            className="modal-backdrop absolute inset-0 bg-black/80 backdrop-blur-xl"
-            onClick={() => setSelectedCert(null)}
-            style={{ cursor: 'pointer' }}
-          >
-            <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
-          </div>
+            className="absolute inset-0 opacity-[0.015] pointer-events-none mix-blend-overlay"
+            style={{
+              backgroundImage:
+                'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")',
+            }}
+          />
 
-          {/* Luxury Modal Content Box */}
-          <div className="modal-content relative z-10 flex flex-col lg:flex-row overflow-hidden max-w-[1200px] w-full max-h-[85vh] shadow-[0_0_80px_rgba(0,0,0,0.8)]">
+          <div className="relative z-10 w-full max-w-md mx-auto flex flex-col h-full">
             
-            {/* ── Image Presentation Side ── */}
-            <div className="modal-img-side w-full lg:w-[55%] relative flex items-center justify-center p-6 md:p-12 min-h-[300px] lg:min-h-[600px]">
-              
-              {/* Giant elegant watermark background */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none">
-                <span
-                  style={{
-                    fontFamily: 'var(--font-neue)',
-                    fontSize: 'clamp(8rem, 25vw, 20rem)',
-                    fontWeight: 800,
-                    lineHeight: 1,
-                    color: 'rgba(255,255,255,0.015)',
-                    letterSpacing: '-0.05em',
-                  }}
-                >
-                  {selectedCert.id}
-                </span>
-              </div>
-
-              {/* Minimal floating labels */}
-              <div className="absolute top-6 left-6 md:top-8 md:left-8 z-10">
-                <span className="font-mono text-[9px] tracking-[0.4em] text-[var(--accent)]/50 uppercase">
-                  Exhibit {selectedCert.id}
-                </span>
-              </div>
-
-              {/* Actual Image */}
-              <div className="relative z-10 max-h-[65vh] w-full flex justify-center items-center">
-                <picture className="contents">
-                  {!selectedCert.image.endsWith('.webp') && (
-                    <source srcSet={selectedCert.image.replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
-                  )}
-                  <img
-                    src={selectedCert.image}
-                    alt={selectedCert.title}
-                    className="modal-cert-image object-contain max-h-[65vh] w-auto shadow-2xl"
-                  />
-                </picture>
-                
-                {/* Floating corner brackets anchoring the image */}
-                <div className="absolute top-0 left-0 w-8 h-8 border-t border-l border-white/20 -translate-x-4 -translate-y-4" />
-                <div className="absolute bottom-0 right-0 w-8 h-8 border-b border-r border-white/20 translate-x-4 translate-y-4" />
-              </div>
+            {/* Top Clean Divider */}
+            <div className="flex items-center w-full opacity-80" style={{ padding: 0, margin: 0 }}>
+              <div className="w-full h-[1px] bg-white/20" />
+              <div className="text-[9px] text-white/40 font-mono px-4 tracking-widest uppercase">Specification</div>
+              <div className="w-full h-[1px] bg-white/20" />
             </div>
-
-            {/* ── Information / Placard Side ── */}
-            <div className="modal-content-side w-full lg:w-[45%] relative flex flex-col justify-center p-8 md:p-12 lg:p-16 overflow-y-auto">
-              
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedCert(null)}
-                className="absolute top-6 right-6 md:top-8 md:right-8 z-20 w-12 h-12 flex items-center justify-center border border-white/10 hover:border-white/30 bg-black/20 hover:bg-white/5 backdrop-blur-sm rounded-full transition-all duration-300 group/close"
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/50 group-hover/close:text-white group-hover/close:rotate-90 transition-all duration-300">
-                  <path d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-
-              <div className="modal-stagger w-full max-w-md mx-auto">
-                {/* Accent Line */}
-                <div className="w-12 h-[1px] mb-8 bg-[var(--accent)]" />
-
-                {/* Issuer */}
-                <div className="font-mono uppercase mb-4" style={{ fontSize: '10px', letterSpacing: '0.3em', color: 'var(--accent)' }}>
+            
+            <div style={{ height: '40px', width: '100%' }} aria-hidden="true" />
+            
+            {/* Issuer & Date Row */}
+            <div className="flex items-start justify-between" style={{ margin: 0, padding: 0 }}>
+              <div>
+                <div className="font-mono text-[8px] text-white/40 uppercase tracking-[0.2em]">Issued By</div>
+                <div style={{ height: '8px' }} aria-hidden="true" />
+                <div className="text-[11px] font-bold tracking-wider uppercase" style={{ color: 'var(--accent)' }}>
                   {selectedCert.issuer}
                 </div>
-
-                {/* Title */}
-                <h3 className="mb-10 text-white leading-[1.1] tracking-tight" style={{ fontFamily: 'var(--font-neue)', fontSize: 'clamp(2rem, 3.5vw, 3.25rem)', fontWeight: 500 }}>
-                  {selectedCert.title}
-                </h3>
-
-                {/* Info Grid */}
-                <div className="grid grid-cols-2 gap-x-8 gap-y-10 mb-12">
-                  <div>
-                    <div className="font-mono text-[9px] text-white/30 uppercase tracking-[0.2em] mb-3">
-                      Date of Issue
-                    </div>
-                    <div className="text-lg text-white/90 font-medium" style={{ fontFamily: 'var(--font-neue)' }}>
-                      {selectedCert.date}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="font-mono text-[9px] text-white/30 uppercase tracking-[0.2em] mb-3">
-                      Credential ID
-                    </div>
-                    <div className="text-lg text-white/90 font-medium" style={{ fontFamily: 'var(--font-neue)' }}>
-                      #{selectedCert.id}-CERT
-                    </div>
-                  </div>
-                  <div>
-                    <div className="font-mono text-[9px] text-white/30 uppercase tracking-[0.2em] mb-3">
-                      Validation
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="relative flex items-center justify-center">
-                        <span className="absolute w-2 h-2 rounded-full bg-emerald-400 animate-ping opacity-75" />
-                        <span className="relative w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-                      </div>
-                      <span className="text-lg text-white/90 font-medium" style={{ fontFamily: 'var(--font-neue)' }}>
-                        Verified
-                      </span>
-                    </div>
-                  </div>
+              </div>
+              <div className="text-right">
+                <div className="font-mono text-[8px] text-white/40 uppercase tracking-[0.2em]">Date</div>
+                <div style={{ height: '8px' }} aria-hidden="true" />
+                <div className="text-[11px] text-white/70 font-semibold tracking-wider tabular-nums font-mono">
+                  {selectedCert.date}
                 </div>
-
-                <div className="w-full h-[1px] bg-white/5 mb-10" />
-
-                {/* Verify Button */}
-                <a
-                  href={selectedCert.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group/btn relative overflow-hidden inline-flex items-center justify-center gap-4 px-10 py-5 w-full bg-white text-black transition-all duration-500"
-                >
-                  <span className="relative z-10 text-[11px] font-mono uppercase tracking-[0.2em] font-semibold">
-                    Inspect Credential
-                  </span>
-                  <svg className="relative z-10 transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                  </svg>
-                  <div className="absolute inset-0 bg-[var(--accent)] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 ease-out" />
-                </a>
               </div>
             </div>
+
+            <div style={{ height: '40px', width: '100%' }} aria-hidden="true" />
+
+            {/* Title */}
+            <h3
+              className="text-white leading-[1.05]"
+              style={{
+                fontFamily: 'var(--font-neue)',
+                fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
+                fontWeight: 500,
+                letterSpacing: '-0.02em',
+                textTransform: 'uppercase',
+                margin: 0,
+                padding: 0
+              }}
+            >
+              {selectedCert.title}
+            </h3>
+
+            <div style={{ height: '30px', width: '100%' }} aria-hidden="true" />
+
+            {/* Separator */}
+            <div className="w-full h-[1px] bg-white/20 opacity-70" style={{ margin: 0, padding: 0 }} />
+
+            <div style={{ height: '30px', width: '100%' }} aria-hidden="true" />
+
+            {/* Learnings */}
+            <div style={{ margin: 0, padding: 0 }}>
+              <div className="font-mono text-[8px] text-white/40 uppercase tracking-[0.2em]">Key Learnings & Impact</div>
+              <div style={{ height: '14px' }} aria-hidden="true" />
+              <div className="text-[12.5px] text-white/60 font-medium leading-[1.8] font-mono whitespace-pre-wrap" style={{ textRendering: 'optimizeLegibility', margin: 0, padding: 0 }}>
+                {selectedCert.learnings}
+              </div>
+            </div>
+
           </div>
         </div>
-      )}
+      </div>
+    </div>
+  </>,
+  document.body
+)}
 
       {/* ════════════════════ SCOPED STYLES ════════════════════ */}
       <style>{`
@@ -638,14 +662,12 @@ export default function Certificates() {
         }
         .modal-content {
           animation: modal-content-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          background: #080808;
-          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 24px;
           transform-style: preserve-3d;
         }
 
         /* Image side */
         .modal-img-side {
-          background: linear-gradient(135deg, #050505 0%, #0a0a0a 100%);
           border-right: 1px solid rgba(255,255,255,0.03);
         }
         .modal-cert-image {

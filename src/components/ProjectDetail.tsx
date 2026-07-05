@@ -586,17 +586,20 @@ export default function ProjectDetail({
               </div>
             )}
 
-            {/* 3-Photo Asymmetric Gallery */}
-            {selected.gallery && selected.gallery.length >= 3 && (
+            {/* Dynamic Gallery */}
+            {selected.gallery && selected.gallery.length > 0 && (
               <div
                 className="gsap-float-item grid grid-cols-1 md:grid-cols-3 gap-4"
                 style={{ marginBottom: '4rem' }}
               >
                 {/* Large Feature Image */}
                 <div
-                  className="md:col-span-2 md:row-span-2 relative overflow-hidden cursor-pointer group"
+                  className={`relative overflow-hidden cursor-pointer group ${
+                    selected.gallery.length >= 3 ? 'md:col-span-2 md:row-span-2' :
+                    selected.gallery.length === 2 ? 'md:col-span-2' : 'md:col-span-3'
+                  }`}
                   style={{
-                    aspectRatio: '16 / 10.3',
+                    aspectRatio: selected.gallery.length >= 3 ? '16 / 10.3' : '16 / 9',
                     boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
                   }}
                   onClick={() => setLightboxUrl(selected.gallery[0])}
@@ -617,52 +620,56 @@ export default function ProjectDetail({
                 </div>
 
                 {/* Supporting Image 1 */}
-                <div
-                  className="md:col-span-1 relative overflow-hidden cursor-pointer group"
-                  style={{
-                    aspectRatio: '16 / 10',
-                    boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
-                  }}
-                  onClick={() => setLightboxUrl(selected.gallery[1])}
-                >
-                  <picture className="contents">
-                    {!selected.gallery[1].endsWith('.webp') && (
-                      <source srcSet={selected.gallery[1].replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
-                    )}
-                    <img
-                      src={selected.gallery[1]}
-                      alt={`${selected.title} Detail 1`}
-                      loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
-                      style={{ filter: 'brightness(0.85)' }}
-                    />
-                  </picture>
-                  <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
-                </div>
+                {selected.gallery.length >= 2 && (
+                  <div
+                    className={`${selected.gallery.length >= 3 ? 'md:col-span-1' : 'md:col-span-1'} relative overflow-hidden cursor-pointer group`}
+                    style={{
+                      aspectRatio: '16 / 10',
+                      boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+                    }}
+                    onClick={() => setLightboxUrl(selected.gallery[1])}
+                  >
+                    <picture className="contents">
+                      {!selected.gallery[1].endsWith('.webp') && (
+                        <source srcSet={selected.gallery[1].replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                      )}
+                      <img
+                        src={selected.gallery[1]}
+                        alt={`${selected.title} Detail 1`}
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
+                        style={{ filter: 'brightness(0.85)' }}
+                      />
+                    </picture>
+                    <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
+                  </div>
+                )}
 
                 {/* Supporting Image 2 */}
-                <div
-                  className="md:col-span-1 relative overflow-hidden cursor-pointer group"
-                  style={{
-                    aspectRatio: '16 / 10',
-                    boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
-                  }}
-                  onClick={() => setLightboxUrl(selected.gallery[2])}
-                >
-                  <picture className="contents">
-                    {!selected.gallery[2].endsWith('.webp') && (
-                      <source srcSet={selected.gallery[2].replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
-                    )}
-                    <img
-                      src={selected.gallery[2]}
-                      alt={`${selected.title} Detail 2`}
-                      loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
-                      style={{ filter: 'brightness(0.85)' }}
-                    />
-                  </picture>
-                  <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
-                </div>
+                {selected.gallery.length >= 3 && (
+                  <div
+                    className="md:col-span-1 relative overflow-hidden cursor-pointer group"
+                    style={{
+                      aspectRatio: '16 / 10',
+                      boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+                    }}
+                    onClick={() => setLightboxUrl(selected.gallery[2])}
+                  >
+                    <picture className="contents">
+                      {!selected.gallery[2].endsWith('.webp') && (
+                        <source srcSet={selected.gallery[2].replace(/\.(jpg|png|webp)$/, '.avif')} type="image/avif" />
+                      )}
+                      <img
+                        src={selected.gallery[2]}
+                        alt={`${selected.title} Detail 2`}
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
+                        style={{ filter: 'brightness(0.85)' }}
+                      />
+                    </picture>
+                    <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
+                  </div>
+                )}
               </div>
             )}
             
